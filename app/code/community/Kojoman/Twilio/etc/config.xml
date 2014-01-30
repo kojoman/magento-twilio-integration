@@ -6,7 +6,12 @@
 		</Kojoman_Twilio>
 	</modules>
 	<global>
-		
+		<models>
+			<twilio>
+				<class>Kojoman_Twilio_Model</class>
+			</twilio>
+		</models>
+
 	</global>
 </config>
 		
