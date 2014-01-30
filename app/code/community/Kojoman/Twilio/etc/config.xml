@@ -1,0 +1,9 @@
+<?xml version="1.0">
+<config>
+	<modules>
+		<Kojoman_Twilio>
+			<version>0.0.1</version>
+		</Kojoman_Twilio>
+	</modules>
+	<global>
+		
