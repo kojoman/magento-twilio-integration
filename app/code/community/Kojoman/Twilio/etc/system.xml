@@ -29,7 +29,7 @@
 							<show_in_store>1</show_in_store>
 						</enabled>
 						<key translate="label,comment">
-							<label>Twilio API Key</label>
+							<label>Twilio Account SID</label>
 							<frontend_type>text</frontend_type>
 							<sort_order>20</sort_order>
 							<show_in_default>1</show_in_default>
@@ -38,7 +38,7 @@
 							<comment>Please enter your twilio API key</comment>
 						</key>
 						<secret translate="label,comment">
-							<label>Twilio API Secret</label>
+							<label>Twilio Auth Token</label>
 							<frontend_type>text</frontend_type>
 							<sort_order>30</sort_order>
 							<show_in_default>1</show_in_default>
