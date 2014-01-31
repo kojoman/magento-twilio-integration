@@ -8,9 +8,9 @@
 						<children>
 							<config>
 								<children>
-									<twilio_options>
+									<magento_twilio>
 										<title>Magento Twilio Integration</title>
-									</twilio_options>
+									</magento_twilio>
 								</children>
 							</config>
 						</children>
