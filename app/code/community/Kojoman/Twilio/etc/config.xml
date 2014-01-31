@@ -13,7 +13,7 @@
 		</models>
 		<helpers>
 			<twilio>
-				<class>Kojoman_Magento_Twilio_Helper</class>
+				<class>Kojoman_Twilio_Helper</class>
 			</twilio>
 		</helpers>
 	</global>
