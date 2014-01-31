@@ -1,6 +1,6 @@
 <?php
 
-class Kojoman_magento_twilio_Helper_Data extends Mage_Core_Helper_Abstract
+class Kojoman_Magento_Twilio_Helper_Data extends Mage_Core_Helper_Abstract
 {
 	const XML_PATH_ENABLED						= 'magento_twilio/api/enabled';
 	const XML_PATH_ACCOUNT_SID					= 'magento_twilio/api/key';
