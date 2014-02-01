@@ -17,6 +17,18 @@
 			</twilio>
 		</helpers>
 	</global>
+	<frontend>
+		<events>
+			<checkout_submit_all_after>
+				<observers>
+					<twilio_checkout_submit_all_after>
+						<class>Kojoman_Twilio_Model_Observer</class>
+						<method>notifyNewOrder</method>
+					</twilio_checkout_submit_all_after>
+				</observers>
+			</checkout_submit_all_after>
+		</events>
+	</frontend>
 	<admin>
 		<routers>
 			<twilio>
