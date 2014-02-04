@@ -1,3 +1,4 @@
 app/code/community/Kojoman/Twilio/*				app/code/community/Kojoman/Twilio
 app/etc/modules/Kojoman_Twilio.xml				app/etc/modules/Kojoman_Twilio.xml
+app/code/community/Varien/Autoload.php			app/code/community/Varien/Autoload.php
 lib/*											lib/
