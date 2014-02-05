@@ -37,6 +37,16 @@ class Kojoman_Twilio_Helper_Data extends Mage_Core_Helper_Abstract
 	}
 
 	/**
+	 * Get Twilio Number
+	 *
+	 * @return String
+	 */
+	public function getTwilioNumber($store = null) 
+	{
+		return(Mage::getStoreConfig(self::XML_PATH_AUTH_TOKEN, $store)); 
+	}
+
+	/**
 	 * Quick and dirty way to debug Magento objects
 	 */
 	public function debug($object)

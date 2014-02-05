@@ -46,6 +46,15 @@
 							<show_in_store>1</show_in_store>
 							<comment>Please enter your twilio API secret here</comment> 
 						</secret>
+						<twilio_number translate="label,comment">
+							<label>Verified Twilio Number</label>
+							<frontend_type>text</frontend_type>
+							<sort_order>40</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+							<comment>Please enter a verified twilio number to send sms from</comment>
+						</twilio_number>
 					</fields>
 				</api>
 			</groups>
