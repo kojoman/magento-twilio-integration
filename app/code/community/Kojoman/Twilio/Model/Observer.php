@@ -14,8 +14,8 @@ class Kojoman_Twilio_Model_Observer extends Services_Twilio
 	// Dummy variables for testing. Change to something better
 	// or use data passed from Observer. 
 	protected $name = "Kojoman";
-	protected $twilio_number = Mage::helper('twilio')->getTwilioNumber(); 	//Remember to change this
-	protected $to = "XXX-XXX-XXXX"; 
+	protected $twilio_number = ""; 	//Remember to change this
+	protected $to = ""; 
 	protected $message = "Kojoman just added an item to his cart";
 
 	Mage::log($twilio_number);
@@ -46,6 +46,8 @@ class Kojoman_Twilio_Model_Observer extends Services_Twilio
 			Mage::log("Magento Twilio module is not enabled");
 			return; 
 		}
+
+		Mage::log($observer);
 
 		try {
 			$sms = $this->account->messages->sendMessage(
