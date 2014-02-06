@@ -19,14 +19,15 @@
 	</global>
 	<frontend>
 		<events>
-			<checkout_cart_product_add_after>
+			<checkout_submit_all_after>
 				<observers>
 					<twilio_checkout_submit_all_after>
+						<type>singleton</type>
 						<class>Kojoman_Twilio_Model_Observer</class>
 						<method>notifyNewOrder</method>
 					</twilio_checkout_submit_all_after>
 				</observers>
-			</checkout_cart_product_add_after>
+			</checkout_submit_all_after>
 		</events>
 	</frontend>
 	<admin>
