@@ -14,11 +14,11 @@ class Kojoman_Twilio_Model_Observer extends Services_Twilio
 	// Dummy variables for testing. Change to something better
 	// or use data passed from Observer. 
 	protected $name = "Kojoman";
-	protected $twilio_number = ""; 	//Remember to change this
-	protected $to = ""; 
+	protected $twilio_number = "(646) 350-0611"; 	//Remember to change this
+	protected $to = "614-286-7468"; 
 	protected $message = "Kojoman just added an item to his cart";
 
-	Mage::log($twilio_number);
+	//Mage::log($twilio_number);
 
 	//protected $twilio = new Services_Twilio($this->AccountSid, $this->AuthToken);
 
@@ -47,7 +47,7 @@ class Kojoman_Twilio_Model_Observer extends Services_Twilio
 			return; 
 		}
 
-		Mage::log($observer);
+		Mage::log(Mage::helper('twilio')->getTwilioNumber());
 
 		try {
 			$sms = $this->account->messages->sendMessage(
