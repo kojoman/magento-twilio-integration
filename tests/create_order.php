@@ -64,6 +64,7 @@ if(!$customer->getId()) {
 		$customer->save();
 		$customer->setConfirmation(null);
 		$customer->save();
+		$customer->sendNewAccountEmail();
 	} catch (Exception $e) {
 		Zend_Debug::dump($e->getMessage());
 	}
@@ -147,7 +148,15 @@ echo "Checkout Object created.\n";
 //Zend_Debug::dump($checkout);
 $checkout->initCheckout();
 $checkout->saveCheckoutMethod('register');
-$checkout->saveShippingMethod('flatrate_flatrate');
+//$checkout->getQuote()->getShippingAddress()->setShippingMethod('flatrate_flatrate');
+// $checkout->getQuote()->getShippingAddress()->unsGrandTotal(); // clear the values so they don't take part in calculation
+// $checkout->getQuote()->getShippingAddress()->unsBaseGrandTotal();
+// $checkout->getQuote()->getShippingAddress()->setCollectShippingRates(true)->save();
+
+//             $checkout->getQuote()->getShippingAddress()->collectTotals();    //collect totals and ensure the initialization of the shipping methods
+
+//             $checkout->getQuote()->collectTotals();
+$shippingMethod = $checkout->saveShippingMethod('flatrate_flatrate');
 $checkout->savePayment(array('method' => 'checkmo'));
 try {
 	$checkout->saveOrder();
@@ -167,15 +176,15 @@ $cart->getItems()->clear()->save();
 // $_customer = Mage::getSingleton('customer/session')->getCustomer();
 
 
-// $quote = Mage::getModel('sales/quote')->setStoreId(Mage::app()->getStore('default')->getId());
+// $checkout->getQuote() = Mage::getModel('sales/quote')->setStoreId(Mage::app()->getStore('default')->getId());
 
 // if ('existing') {
 // 	//For customer orders: 
 // 	$customer = Mage::getModel('customer/customer')->setWebsiteId(1)->loadByEmail('customer@email.com');
-// 	$quote->assignCustomer($customer);
+// 	$checkout->getQuote()->assignCustomer($customer);
 // } else {
 // 	// for guest orders only:
-// 	$quote->setCustomerEmail('customer@email.com');
+// 	$checkout->getQuote()->setCustomerEmail('customer@email.com');
 // }
 
 // //Add products
@@ -187,7 +196,7 @@ $cart->getItems()->clear()->save();
 // 		//configurable attribute id => value id
 // 	);
 
-// $quote->addProduct($product, new Varien_Object($buyInfo));
+// $checkout->getQuote()->addProduct($product, new Varien_Object($buyInfo));
 // $addressData = array(
 // 		'firstname' => 'Test',
 // 		'lastname'  => 	'Test',
