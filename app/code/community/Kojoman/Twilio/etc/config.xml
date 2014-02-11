@@ -28,6 +28,15 @@
 					</twilio_checkout_onepage_controller_success_action>
 				</observers>
 			</checkout_onepage_controller_success_action>
+			<customer_register_success>
+				<observers>
+					<twilio_checkout_onepage_controller_success_action>
+						<type>singleton</type>
+						<class>Kojoman_Twilio_Model_Observer</class>
+						<method>notifyNewCustomer</method>
+					</twilio_checkout_onepage_controller_success_action>
+				</observers>
+			</customer_register_success>
 		</events>
 	</frontend>
 	<admin>
