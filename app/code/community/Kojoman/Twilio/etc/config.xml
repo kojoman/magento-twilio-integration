@@ -37,6 +37,15 @@
 					</twilio_checkout_onepage_controller_success_action>
 				</observers>
 			</customer_register_success>
+			<sales_order_shipment_save_after>
+				<observers>
+					<twilio_sales_order_shipment_save_after>
+						<type>singleton</type>
+						<class>Kojoman_Twilio_Model_Observer</class>
+						<method>notifyNewShipment</method>
+					</twilio_sales_order_shipment_save_after>
+				</observers>
+			</sales_order_shipment_save_after>
 		</events>
 	</frontend>
 	<admin>

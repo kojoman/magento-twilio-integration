@@ -97,4 +97,32 @@ class Kojoman_Twilio_Model_Observer extends Services_Twilio
 		
 		return $this; 
 	}
+
+		//Send notification when new customer signs up
+	public function notifyNewShipment(Varien_Event_Observer $observer)
+	{
+		/* @var $order Mage_Sales_Model_Order */
+		if (!Mage::helper('twilio')->isEnabled()) {
+			Mage::log("Magento Twilio module is not enabled");
+			return; 
+		}
+
+		Mage::log($observer);
+
+		try {
+			$sms = $this->account->messages->sendMessage(
+				$this->twilio_number,
+				$this->to,
+				'Your order has been just been shipped.'
+			); 
+		
+			Mage::log($sms);
+
+			//$this->_debug($sms);
+		} catch (Exception $e) {
+			Mage::logException($e);
+		}
+		
+		return $this; 
+	}
 }
