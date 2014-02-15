@@ -28,24 +28,6 @@
 							<show_in_website>1</show_in_website>
 							<show_in_store>1</show_in_store>
 						</enabled>
-						<sms_new_order translate="label">
-							<label>Send SMS for New Orders</label>
-							<frontend_type>select</frontend_type>
-							<source_model>adminhtml/system_config_source_yesno</source_model>
-							<sort_order>10</sort_order>
-							<show_in_default>1</show_in_default>
-							<show_in_website>1</show_in_website>
-							<show_in_store>1</show_in_store>
-						</sms_new_order>
-						<sms_new_shipment translate="label">
-							<label>Notify Customers via SMS when order is shipped</label>
-							<frontend_type>select</frontend_type>
-							<source_model>adminhtml/system_config_source_yesno</source_model>
-							<sort_order>10</sort_order>
-							<show_in_default>1</show_in_default>
-							<show_in_website>1</show_in_website>
-							<show_in_store>1</show_in_store>
-						</sms_new_shipment>
 						<key translate="label,comment">
 							<label>Twilio Account SID</label>
 							<frontend_type>text</frontend_type>
@@ -75,6 +57,35 @@
 						</twilio_number>
 					</fields>
 				</api>
+				<options translate="label">
+					<label>Notification Options</label>
+					<frontend_type>text</frontend_type>
+					<sort_order>20</sort_order>
+					<show_in_default>1</show_in_default>
+					<show_in_website>1</show_in_website>
+					<show_in_store>1</show_in_store>
+					<comment>Please enable or disable specific notifications here</comment>
+					<fields>
+						<sms_new_order translate="label">
+							<label>Send SMS for New Orders</label>
+							<frontend_type>select</frontend_type>
+							<source_model>adminhtml/system_config_source_yesno</source_model>
+							<sort_order>10</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</sms_new_order>
+						<sms_new_shipment translate="label">
+							<label>Notify Customers via SMS when order is shipped</label>
+							<frontend_type>select</frontend_type>
+							<source_model>adminhtml/system_config_source_yesno</source_model>
+							<sort_order>10</sort_order>
+							<show_in_default>0</show_in_default>
+							<show_in_website>0</show_in_website>
+							<show_in_store>0</show_in_store>
+						</sms_new_shipment>
+					</fields>
+				</options>
 			</groups>
 		</magento_twilio>
 	</sections>
