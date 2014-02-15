@@ -42,8 +42,8 @@ class Kojoman_Twilio_Model_Observer extends Services_Twilio
 	public function notifyNewOrder(Varien_Event_Observer $observer)
 	{
 		/* @var $order Mage_Sales_Model_Order */
-		if (!Mage::helper('twilio')->isEnabled()) {
-			Mage::log("Magento Twilio module is not enabled");
+		if (!Mage::helper('twilio')->isEnabled()  || !Mage::helper('twilio')->sendSmsForNewOrders()) {
+			Mage::log("Magento Twilio module is not enabled or should not send SMS for new orders.");
 			return; 
 		}
 
@@ -102,9 +102,11 @@ class Kojoman_Twilio_Model_Observer extends Services_Twilio
 	public function notifyNewShipment(Varien_Event_Observer $observer)
 	{
 		/* @var $order Mage_Sales_Model_Order */
-		if (!Mage::helper('twilio')->isEnabled()) {
-			Mage::log("Magento Twilio module is not enabled");
+		if (!Mage::helper('twilio')->isEnabled() || !Mage::helper('twilio')->sendSmsForNewShipments()) {
+			Mage::log("Magento Twilio module is not enabled or should not send SMS for new shipments.");
 			return; 
+		} else {
+			Mage::log("Magento Twilio module is enabled");
 		}
 
 		Mage::log($observer);
