@@ -12,9 +12,9 @@ This extension is an attempt at integrating Magento with Twilio.  The extension 
 
 1. Install module using [modman](https://github.com/colinmollenhour/modman):
 	
-	cd /path/to/magento/directory
-	modman init
-	modman clone git@github.com:kojoman/magento-twilio-integration.git
+	cd /path/to/magento/directory  
+	modman init  
+	modman clone git@github.com:kojoman/magento-twilio-integration.git  
 
 2. Signup for a [twilio](https://www.twilio.com/try-twilio) account if you don't already have one. 
 
