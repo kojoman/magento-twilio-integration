@@ -4,7 +4,6 @@
  * All common functions go in this file
  */
 
-
 // Please replace with specific path to your Magento root. 
 $magentoDir = '/var/www/vhosts/magento/'; 
 
