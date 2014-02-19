@@ -10,13 +10,12 @@ class Kojoman_Twilio_Model_Observer extends Services_Twilio
 
 	protected $AccountSid;
 	protected $AuthToken;
+	protected $twilioNumber;
+	protected $smsNotificationNumber; 
 
 	// Dummy variables for testing. Change to something better
 	// or use data passed from Observer. 
-	protected $name = "Kojoman";
-	protected $twilio_number = "(646) 350-0611"; 	//Remember to change this
-	protected $to = "614-286-7468"; 
-	protected $message = "Kojoman just added an item to his cart";
+	protected $message = "Just got a new order...";
 
 	//Mage::log($twilio_number);
 
@@ -30,6 +29,8 @@ class Kojoman_Twilio_Model_Observer extends Services_Twilio
 
 		$this->AccountSid = Mage::helper('twilio')->getAccountSID();
 		$this->AuthToken  = Mage::helper('twilio')->getAuthToken();
+		$this->twilioNumber = Mage::helper('twilio')->getTwilioNumber();
+		$this->to 			= Mage::helper('twilio')->getSMSNotificationNumber();
 
 		parent::__construct($this->AccountSid, $this->AuthToken);
 	}
@@ -41,26 +42,34 @@ class Kojoman_Twilio_Model_Observer extends Services_Twilio
 
 	public function notifyNewOrder(Varien_Event_Observer $observer)
 	{
+		//Mage::log($observer->getEvent());
+
 		/* @var $order Mage_Sales_Model_Order */
 		if (!Mage::helper('twilio')->isEnabled()  || !Mage::helper('twilio')->sendSmsForNewOrders()) {
 			Mage::log("Magento Twilio module is not enabled or should not send SMS for new orders.");
 			return; 
 		}
 
+		//New order for {order_total} from {customer_name} 
+
 		Mage::log(Mage::helper('twilio')->getTwilioNumber());
+
+		//$cart = Mage::getSingleton('checkout/session')->getQuote()->getAllItems();
+
+		//Mage::log($cart);
 
 		try {
 			$sms = $this->account->messages->sendMessage(
-				$this->twilio_number,
+				$this->twilioNumber,
 				$this->to,
 				$this->message
 			); 
 		
-			Mage::log($sms);
+			//Mage::log($sms);
 
 			$product = $observer->getEvent()->getData();
 
-			Mage::log($product);
+			//Mage::log($product);
 
 			//$this->_debug($sms);
 		} catch (Exception $e) {

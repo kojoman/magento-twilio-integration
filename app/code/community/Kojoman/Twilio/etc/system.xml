@@ -55,6 +55,15 @@
 							<show_in_store>1</show_in_store>
 							<comment>Please enter a verified twilio number to send sms from</comment>
 						</twilio_number>
+						<sms_notifications_number translate="label,comment">
+							<label>Mobile Number</label>
+							<frontend_type>text</frontend_type>
+							<sort_order>50</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+							<comment>Please enter a mobile number that SMS notifications can be sent to</comment>
+						</sms_notifications_number>
 					</fields>
 				</api>
 				<options translate="label">
