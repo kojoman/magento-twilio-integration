@@ -7,6 +7,8 @@ class Kojoman_Twilio_Helper_Data extends Mage_Core_Helper_Abstract
 	const XML_PATH_SMS_NEW_SHIPMENT				= 'magento_twilio/options/sms_new_shipment';
 	const XML_PATH_ACCOUNT_SID					= 'magento_twilio/api/key';
 	const XML_PATH_AUTH_TOKEN					= 'magento_twilio/api/secret';
+	const XML_PATH_TWILIO_NUMBER				= 'magento_twilio/api/twilio_number';
+	const XML_PATH_SMS_NOTIFICATIONS_NUMBER 	= 'magento_twilio/api/sms_notifications_number';
 
 	/** 
 	 * Check to see if extension is enabled
@@ -65,7 +67,17 @@ class Kojoman_Twilio_Helper_Data extends Mage_Core_Helper_Abstract
 	 */
 	public function getTwilioNumber($store = null) 
 	{
-		return(Mage::getStoreConfig(self::XML_PATH_AUTH_TOKEN, $store)); 
+		return(Mage::getStoreConfig(self::XML_PATH_TWILIO_NUMBER, $store)); 
+	}
+
+	/* 
+	 * Number to send notifications to.  
+	 * 
+	 * 
+	*/
+	public function getSMSNotificationNumber($store = null) 
+	{
+		return(Mage::getStoreConfig(self::XML_PATH_SMS_NOTIFICATIONS_NUMBER, $store));
 	}
 
 	/**
