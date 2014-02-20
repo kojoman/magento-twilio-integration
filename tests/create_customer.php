@@ -9,15 +9,6 @@
 // Include common configurations
 include 'common.php';
 
-/*
- 1. Check if customer exists
- 2. Create customer if does not exist
- 3. Start session for customer
- 4. Add products to customers cart
- 5. Create order
- 6. Checkout 
- */
-
 // Magento customer object 
 $customer = Mage::getModel('customer/customer');
 
@@ -29,7 +20,7 @@ $customer->setWebsiteId(Mage::app()->getWebsite()->getId());
 $customer->setStoreId(Mage::app()->getStore()->getId());
 $customer->loadByEmail($email);
 
-//Delete customer
+//We need to test when new customer signs up so delete existing one 
 if($customer->getId()) {
 	$customerId = $customer->getId();
 	//$customer = Mage::getModel('customer/customer')->loadById($customerId);
@@ -43,14 +34,8 @@ if($customer->getId()) {
 	}
 }
 
-try {
-	
-} catch (Exception $e) {
-	
-}
-
 //Create new customer if customer with specified email does not exist. 
-//if(!$customer->getId()) {
+// if(!$customer->getId()) {
 	echo "Creating customer...\n";
 	$customer->setEmail($email);
 	$customer->setFirstName('FirstName');  	//TODO: Customer First Name not appearing in admin
@@ -68,6 +53,8 @@ try {
 		Zend_Debug::dump($e->getMessage());
 		Mage::logException($e->getMessage());
 	}
-//}
+// } else {
+// 	Mage::log('Could not create new customer. Customer already exists.');
+// }
 
 ?>

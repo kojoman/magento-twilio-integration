@@ -23,6 +23,11 @@ class Kojoman_Twilio_Model_Observer extends Services_Twilio
 
 	//protected $twilio = Services_Twilio("abc", "$this->AuthToken");
 
+	/**
+	 * Constructor
+	 *
+	 * Set up the twilio object and assign the numbers to use.
+	 */
 	public function __construct()
 	{
 		$decryptor = Mage::helper('core');
@@ -35,11 +40,10 @@ class Kojoman_Twilio_Model_Observer extends Services_Twilio
 		parent::__construct($this->AccountSid, $this->AuthToken);
 	}
 
-	protected function _debug($object) 
-	{
-		return Mage::helper('twilio')->debug($object); 
-	}
-
+	/**
+	 * Send Notification when there's a new order.
+	 *
+	 */
 	public function notifyNewOrder(Varien_Event_Observer $observer)
 	{
 		//Mage::log($observer->getEvent());
@@ -112,7 +116,6 @@ class Kojoman_Twilio_Model_Observer extends Services_Twilio
 		
 			Mage::log($sms);
 
-			//$this->_debug($sms);
 		} catch (Exception $e) {
 			Mage::logException($e);
 		}
