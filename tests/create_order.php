@@ -68,6 +68,11 @@ if(!$customer->getId()) {
 // Login customer
 Mage::getSingleton('customer/session')->loginById($customer->getId());
 
+$quote = Mage::getModel('sales/quote')->setStoreId(Mage::app()->getStore('default')->getId());
+
+$product = Mage::getModel('catalog/product')->load('52');
+$buyInfo = array('qty' => 1);
+$quote->addProduct($product, new Varien_Object($buyInfo));
 
 // Create shipping and billing address for customer. Needed for checkout 
 $address = array(
@@ -85,127 +90,150 @@ $address = array(
 	'telephone'	=> '1-234-567-8912', 
 );
 
-$customerAddress = Mage::getModel('customer/address');
+$quote->getBillingAddress()->addData($address);
 
-$customerAddress->setData($address)
-				->setCustomerId($customer->getId())
-				->setIsDefaultBilling('1')
-				->setIsDefaultShipping('1')
-				->setSaveInAddressBook('1');
+$quote->getShippingAddress()
+		->addData($address)
+		->setShippingMethod('flatrate_flatrate')
+		->setPaymentMethod('checkmo')
+		->setCollectShippingRates(true)
+		->collectTotals();
 
-try {
-	$customerAddress->save();
-} catch (Exception $e) {
-	Mage::logException($e->getMessage());
-	Zend_Debug::dump($e->getMessage());
-}
+$quote->setCheckoutMethod('guest')
+		->setCustomerId(null)
+		->setCustomerEmail($quote->getBillingAddress()->getEmail())
+		->setCustomerIsGuest(true)
+		->setCustomerGroupId(Mage_Customer_Model_Group::NOT_LOGGED_IN_ID);
 
-$x = Mage::getSingleton('checkout/session')->getQuote()->setBillingAddress(Mage::getSingleton('sales/quote_address')->importCustomerAddress($customerAddress));
+$quote->getPayment()->importData(array('method' => 'checkmo'));
 
-//Zend_Debug::dump($x);
+$quote->save();
 
-// We now have a logged in customer
-// Next step is to add products to his/her cart
-// 1112 is the sku for 'Chair' if you use Magento's default data set
-$sku = '1112';
+$service = Mage::getModel('sales/service_quote', $quote);
+$service->submitAll();
 
-$product = Mage::getModel('catalog/product')->getCollection()
-			->addAttributeToFilter('sku', $sku)
-			->addAttributeToSelect('*')
-			->getFirstItem();
 
-echo "product object has been created.\n";
-Zend_Debug::dump($product);
+// $customerAddress = Mage::getModel('customer/address');
 
-// Load full product
-$product->load($product->getId());
-$cart = Mage::getSingleton('checkout/cart');
-//$cart = Mage::getModel('sales/quote')->loadByCustomer($customer->getId());
-// Clear cart before adding products
-$cart->truncate();
-$cart->save();
-$cart->getItems()->clear()->save();
+// $customerAddress->setData($address)
+// 				->setCustomerId($customer->getId())
+// 				->setIsDefaultBilling('1')
+// 				->setIsDefaultShipping('1')
+// 				->setSaveInAddressBook('1');
 
-try {
-	$cart->init();
-	$cart->addProduct($product);
-	$cart->save();
-	Mage::getSingleton('checkout/session')->setCartWasUpdated(true);
-	echo "Product added to cart\n";
-} catch (Exception $e) {
-	Mage::logException($e->getMessage());
-	Zend_Debug::dump($e->getMessage());
-}
-//unset($product);
+// try {
+// 	$customerAddress->save();
+// } catch (Exception $e) {
+// 	Mage::logException($e->getMessage());
+// 	Zend_Debug::dump($e->getMessage());
+// }
 
-// Now let's make the purchase 
-$storeId = Mage::app()->getStore()->getId();
-$checkout = Mage::getSingleton('checkout/type_onepage');
-echo "Checkout Object created.\n";
-//Zend_Debug::dump($checkout);
-$checkout->initCheckout();
-$checkout->saveCheckoutMethod('register');
-//$checkout->getQuote()->getShippingAddress()->setShippingMethod('flatrate_flatrate');
-// $checkout->getQuote()->getShippingAddress()->unsGrandTotal(); // clear the values so they don't take part in calculation
-// $checkout->getQuote()->getShippingAddress()->unsBaseGrandTotal();
-// $checkout->getQuote()->getShippingAddress()->setCollectShippingRates(true)->save();
+// $x = Mage::getSingleton('checkout/session')->getQuote()->setBillingAddress(Mage::getSingleton('sales/quote_address')->importCustomerAddress($customerAddress));
 
-//             $checkout->getQuote()->getShippingAddress()->collectTotals();    //collect totals and ensure the initialization of the shipping methods
+// //Zend_Debug::dump($x);
 
-//             $checkout->getQuote()->collectTotals();
-$shippingMethod = $checkout->saveShippingMethod('flatrate');
-Zend_Debug::dump($shippingMethod);
-$checkout->savePayment(array('method' => 'checkmo'));
-try {
-	$checkout->saveOrder();
-} catch (Exception $e) {
-	Zend_Debug::dump($e->getMessage());
-}
+// // We now have a logged in customer
+// // Next step is to add products to his/her cart
+// // 1112 is the sku for 'Chair' if you use Magento's default data set
+// $sku = '1112';
 
-// //Zend_Debug::dump($checkout);
+// $product = Mage::getModel('catalog/product')->getCollection()
+// 			->addAttributeToFilter('sku', $sku)
+// 			->addAttributeToSelect('*')
+// 			->getFirstItem();
 
-// //Clear the cart
+// echo "product object has been created.\n";
+// Zend_Debug::dump($product);
+
+// // Load full product
+// $product->load($product->getId());
+// $cart = Mage::getSingleton('checkout/cart');
+// //$cart = Mage::getModel('sales/quote')->loadByCustomer($customer->getId());
+// // Clear cart before adding products
 // $cart->truncate();
 // $cart->save();
 // $cart->getItems()->clear()->save();
 
+// try {
+// 	$cart->init();
+// 	$cart->addProduct($product);
+// 	$cart->save();
+// 	Mage::getSingleton('checkout/session')->setCartWasUpdated(true);
+// 	echo "Product added to cart\n";
+// } catch (Exception $e) {
+// 	Mage::logException($e->getMessage());
+// 	Zend_Debug::dump($e->getMessage());
+// }
+// //unset($product);
 
-// // Mage::getSingleton('core/session', array('name' => 'frontend')); 
-// // $_customer = Mage::getSingleton('customer/session')->getCustomer();
+// // Now let's make the purchase 
+// $storeId = Mage::app()->getStore()->getId();
+// $checkout = Mage::getSingleton('checkout/type_onepage');
+// echo "Checkout Object created.\n";
+// //Zend_Debug::dump($checkout);
+// $checkout->initCheckout();
+// $checkout->saveCheckoutMethod('register');
+// //$checkout->getQuote()->getShippingAddress()->setShippingMethod('flatrate_flatrate');
+// // $checkout->getQuote()->getShippingAddress()->unsGrandTotal(); // clear the values so they don't take part in calculation
+// // $checkout->getQuote()->getShippingAddress()->unsBaseGrandTotal();
+// // $checkout->getQuote()->getShippingAddress()->setCollectShippingRates(true)->save();
+
+// //             $checkout->getQuote()->getShippingAddress()->collectTotals();    //collect totals and ensure the initialization of the shipping methods
+
+// //             $checkout->getQuote()->collectTotals();
+// $shippingMethod = $checkout->saveShippingMethod('flatrate');
+// Zend_Debug::dump($shippingMethod);
+// $checkout->savePayment(array('method' => 'checkmo'));
+// try {
+// 	$checkout->saveOrder();
+// } catch (Exception $e) {
+// 	Zend_Debug::dump($e->getMessage());
+// }
+
+// // //Zend_Debug::dump($checkout);
+
+// // //Clear the cart
+// // $cart->truncate();
+// // $cart->save();
+// // $cart->getItems()->clear()->save();
 
 
-// // $checkout->getQuote() = Mage::getModel('sales/quote')->setStoreId(Mage::app()->getStore('default')->getId());
+// // // Mage::getSingleton('core/session', array('name' => 'frontend')); 
+// // // $_customer = Mage::getSingleton('customer/session')->getCustomer();
 
-// // if ('existing') {
-// // 	//For customer orders: 
-// // 	$customer = Mage::getModel('customer/customer')->setWebsiteId(1)->loadByEmail('customer@email.com');
-// // 	$checkout->getQuote()->assignCustomer($customer);
-// // } else {
-// // 	// for guest orders only:
-// // 	$checkout->getQuote()->setCustomerEmail('customer@email.com');
-// // }
 
-// // //Add products
-// // $product = Mage::getModel('catalog/product')->load(4);
-// // $buyInfo = array(
-// // 		'qty' => 1,
-// // 		//Custom option id => value id
-// // 		//or
-// // 		//configurable attribute id => value id
-// // 	);
+// // // $checkout->getQuote() = Mage::getModel('sales/quote')->setStoreId(Mage::app()->getStore('default')->getId());
 
-// // $checkout->getQuote()->addProduct($product, new Varien_Object($buyInfo));
-// // $addressData = array(
-// // 		'firstname' => 'Test',
-// // 		'lastname'  => 	'Test',
-// // 		'street' 	=> 'Sample Street 10',
-// // 		'city'		=> 'New York',
-// // 		'postcode'	=> '10001', 
-// // 		'telephone' => '12345',
-// // 		'country_id' => 'US',
-// // 		'region_id'  => 12,
-// // 	);
+// // // if ('existing') {
+// // // 	//For customer orders: 
+// // // 	$customer = Mage::getModel('customer/customer')->setWebsiteId(1)->loadByEmail('customer@email.com');
+// // // 	$checkout->getQuote()->assignCustomer($customer);
+// // // } else {
+// // // 	// for guest orders only:
+// // // 	$checkout->getQuote()->setCustomerEmail('customer@email.com');
+// // // }
 
-// // echo "hello world";
+// // // //Add products
+// // // $product = Mage::getModel('catalog/product')->load(4);
+// // // $buyInfo = array(
+// // // 		'qty' => 1,
+// // // 		//Custom option id => value id
+// // // 		//or
+// // // 		//configurable attribute id => value id
+// // // 	);
+
+// // // $checkout->getQuote()->addProduct($product, new Varien_Object($buyInfo));
+// // // $addressData = array(
+// // // 		'firstname' => 'Test',
+// // // 		'lastname'  => 	'Test',
+// // // 		'street' 	=> 'Sample Street 10',
+// // // 		'city'		=> 'New York',
+// // // 		'postcode'	=> '10001', 
+// // // 		'telephone' => '12345',
+// // // 		'country_id' => 'US',
+// // // 		'region_id'  => 12,
+// // // 	);
+
+// // // echo "hello world";
 
 // // ?>
