@@ -77,8 +77,6 @@ class Kojoman_Twilio_Model_Observer extends Services_Twilio
 			return; 
 		}
 
-		//Mage::log($observer);
-
 		try {
 			$sms = 	$this->account->messages->sendMessage(
 					$this->twilioNumber,
@@ -94,7 +92,7 @@ class Kojoman_Twilio_Model_Observer extends Services_Twilio
 		return $this; 
 	}
 
-		//Send notification when new customer signs up
+	//Send notification when new customer signs up
 	public function notifyNewShipment(Varien_Event_Observer $observer)
 	{
 		/* @var $order Mage_Sales_Model_Order */
@@ -105,17 +103,12 @@ class Kojoman_Twilio_Model_Observer extends Services_Twilio
 			Mage::log("Magento Twilio module is enabled");
 		}
 
-		Mage::log($observer);
-
 		try {
 			$sms = $this->account->messages->sendMessage(
 				$this->twilio_number,
 				$this->smsNotificationNumber,
 				'Your order has been just been shipped.'
 			); 
-		
-			Mage::log($sms);
-
 		} catch (Exception $e) {
 			Mage::logException($e);
 		}
