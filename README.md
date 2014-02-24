@@ -31,6 +31,9 @@ This extension is an attempt at integrating Magento with Twilio.  The extension 
 -  Send SMS when a new customer subscribes
 -  Send SMS when a new sale is made
 -  Send SMS after order is shipped
+- Allow customers to call customer support directly from browser
+    Much of the code / inspiration is based on @avalanche123's extension[git@github.com:avalanche123/twilio-magento.git]
+
 
 ## Contributing 
 
