@@ -16,6 +16,14 @@
 				<class>Kojoman_Twilio_Helper</class>
 			</twilio>
 		</helpers>
+        <resources>
+            <twilio_setup>
+                <setup>
+                    <module>Kojoman_Twilio</module>
+                    <class>Kojoman_Twilio_Model_Resource_Setup</class>
+                </setup>
+            </twilio_setup>
+        </resources>
 	</global>
 	<frontend>
 		<events>
