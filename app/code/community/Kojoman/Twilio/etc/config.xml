@@ -17,12 +17,12 @@
 			</twilio>
 		</helpers>
         <resources>
-            <twiliio_setup>
+            <twilio_setup>
                 <setup>
                     <module>Kojoman_Twilio</module>
                     <class>Kojoman_Twilio_Model_Resource_Setup</class>
                 </setup>
-            </twiliio_setup>
+            </twilio_setup>
         </resources>
 	</global>
 	<frontend>
