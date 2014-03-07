@@ -38,3 +38,7 @@ This extension is an attempt at integrating Magento with Twilio.  The extension 
 ## Contributing 
 
 As mentioned earlier, this project is still in alpha phase and as a result is not feature-complete as well as having some bugs.  Please use GitHub issues to report any problems and submit pull requests.  The ideal workflow is to fork the repo and create a branch and develop off of that branch.  Then, you can make a pull request.  
+
+## Note
+
+There are currently a few bugs that will break this in production so please test before using.
