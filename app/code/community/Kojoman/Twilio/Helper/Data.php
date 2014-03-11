@@ -6,6 +6,7 @@ class Kojoman_Twilio_Helper_Data extends Mage_Core_Helper_Abstract
 	const XML_PATH_ACCOUNT_SID					= 'magento_twilio/api/key';
 	const XML_PATH_AUTH_TOKEN					= 'magento_twilio/api/secret';
 	const XML_PATH_TWILIO_NUMBER				= 'magento_twilio/api/twilio_number';
+	const XML_PATH_STATUS_CALLBACK_URL 			= 'magento_twilio/api/status_callback_url';
 	const XML_PATH_SMS_NOTIFICATIONS_NUMBER 	= 'magento_twilio/api/sms_notifications_number';
 	const XML_PATH_SMS_NEW_ORDER				= 'magento_twilio/options/sms_new_order';
 	const XML_PATH_SMS_NEW_CUSTOMER				= 'magento_twilio/options/sms_new_customer';
@@ -79,6 +80,16 @@ class Kojoman_Twilio_Helper_Data extends Mage_Core_Helper_Abstract
 	public function getTwilioNumber($store = null) 
 	{
 		return(Mage::getStoreConfig(self::XML_PATH_TWILIO_NUMBER, $store)); 
+	}
+
+	/**
+	 * Get Twilio status callback url
+	 *
+	 * @return String
+	 */
+	public function getStatusCallbackUrl($store = null) 
+	{
+		return(Mage::getStoreConfig(self::XML_PATH_STATUS_CALLBACK_URL, $store)); 
 	}
 
 	/* 

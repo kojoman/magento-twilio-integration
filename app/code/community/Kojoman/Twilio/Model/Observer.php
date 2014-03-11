@@ -55,14 +55,25 @@ class Kojoman_Twilio_Model_Observer extends Services_Twilio
 		}
 
 		//Send SMS via twilio 
+		// try {
+		// 	$sms = $this->account->messages->sendMessage(
+		// 		$this->twilioNumber,
+		// 		$this->smsNotificationNumber,
+		// 		$this->message
+		// 	); 
+		// } catch (Exception $e) {
+		// 	Mage::logException($e);
+		// }
+
+		//Send SMS via twilio 
 		try {
-			$sms = $this->account->messages->sendMessage(
-				$this->twilioNumber,
-				$this->smsNotificationNumber,
-				$this->message
-			); 
+			$sms = $this->account->messages->create(array(
+				'To' 	=> $this->twilioNumber,
+				'From' 	=> $this->smsNotificationNumber,
+				'Body'	=> $this->message,
+			));
 		} catch (Exception $e) {
-			Mage::logException($e);
+			
 		}
 		
 		return $this; 

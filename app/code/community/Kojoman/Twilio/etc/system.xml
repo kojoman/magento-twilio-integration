@@ -64,6 +64,15 @@
 							<show_in_store>1</show_in_store>
 							<comment>Please enter a mobile number that SMS notifications can be sent to</comment>
 						</sms_notifications_number>
+						<status_callback_url translate="label,comment">
+							<label>Status Callback Url</label>
+							<frontend_type>text</frontend_type>
+							<sort_order>60</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+							<comment>Please enter a url where Twilio Response can be sent.</comment>
+						</status_callback_url>
 					</fields>
 				</api>
 				<options translate="label">
