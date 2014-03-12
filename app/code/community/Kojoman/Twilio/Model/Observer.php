@@ -71,6 +71,7 @@ class Kojoman_Twilio_Model_Observer extends Services_Twilio
 				'To' 	=> $this->twilioNumber,
 				'From' 	=> $this->smsNotificationNumber,
 				'Body'	=> $this->message,
+				'StatusCallback' => Mage::helper('twilio')->getStatusCallbackUrl()		//TODO: Verify this is set first
 			));
 		} catch (Exception $e) {
 			
