@@ -1,6 +1,7 @@
 <?php
 
-class Services_Twilio_Rest_IpAccessControlLists extends Services_Twilio_SIPListResource {
+class Services_Twilio_Rest_IpAccessControlLists extends Services_Twilio_SIPListResource
+{
 
     /**
      * Creates a new IpAccessControlLists instance
@@ -18,10 +19,13 @@ class Services_Twilio_Rest_IpAccessControlLists extends Services_Twilio_SIPListR
      * :rtype: :class:`Services_Twilio_Rest_IpAccessControlList`
      *
      */
-    public function create($friendly_name, $params = array()) {
-        return parent::_create(array(
-            'FriendlyName' => $friendly_name,
-        ) + $params);
+    public function create($friendly_name, $params = array())
+    {
+        return parent::_create(
+            array(
+                'FriendlyName' => $friendly_name,
+            ) + $params
+        );
     }
 
 }

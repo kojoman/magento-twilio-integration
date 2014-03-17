@@ -1,22 +1,22 @@
 <?xml version="1.0"?>
 <config>
-	<acl>
-		<resources>
-			<admin>
-				<children>
-					<system>
-						<children>
-							<config>
-								<children>
-									<magento_twilio>
-										<title>Magento Twilio Integration</title>
-									</magento_twilio>
-								</children>
-							</config>
-						</children>
-					</system>
-				</children>
-			</admin>
-		</resources>
-	</acl>
+    <acl>
+        <resources>
+            <admin>
+                <children>
+                    <system>
+                        <children>
+                            <config>
+                                <children>
+                                    <magento_twilio>
+                                        <title>Magento Twilio Integration</title>
+                                    </magento_twilio>
+                                </children>
+                            </config>
+                        </children>
+                    </system>
+                </children>
+            </admin>
+        </resources>
+    </acl>
 </config>

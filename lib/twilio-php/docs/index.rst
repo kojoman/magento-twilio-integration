@@ -1,7 +1,7 @@
 .. Services_Twilio documentation master file, created by
-   sphinx-quickstart on Tue Mar  8 04:02:01 2011.
-   You can adapt this file completely to your liking, but it should at least
-   contain the root `toctree` directive.
+sphinx-quickstart on Tue Mar  8 04:02:01 2011.
+You can adapt this file completely to your liking, but it should at least
+contain the root `toctree` directive.
 
 =================
 **twilio-php**
@@ -67,7 +67,7 @@ to easily create such responses.
 
     $response = new Services_Twilio_Twiml();
     $response->say('Hello');
-    $response->play('https://api.twilio.com/cowbell.mp3', array("loop" => 5));    
+    $response->play('https://api.twilio.com/cowbell.mp3', array("loop" => 5));
     print $response;
 
 .. code-block:: xml
@@ -110,31 +110,31 @@ REST API
 >>>>>>>>>>
 
 .. toctree::
-    :maxdepth: 2
-    :glob:
+:maxdepth: 2
+        :glob:
 
-    usage/rest
-    usage/rest/*
+        usage/rest
+        usage/rest/*
 
-TwiML and other utilities
->>>>>>>>>>>>>>>>>>>>>>>>>>
+    TwiML and other utilities
+    >>>>>>>>>>>>>>>>>>>>>>>>>>
 
 .. toctree::
-    :maxdepth: 1
+:maxdepth: 1
 
-    usage/twiml
-    usage/validation
-    usage/token-generation
-    faq/
+        usage/twiml
+        usage/validation
+        usage/token-generation
+        faq/
 
 API Documentation
 ==================
 
 .. toctree::
-    :maxdepth: 3
-    :glob:
+:maxdepth: 3
+        :glob:
 
-    api/*
+        api/*
 
 
 Support and Development

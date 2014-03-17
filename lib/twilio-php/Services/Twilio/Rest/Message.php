@@ -43,8 +43,10 @@
  *
  *    The phone number this message was sent to
  */
-class Services_Twilio_Rest_Message extends Services_Twilio_InstanceResource {
-    protected function init($client, $uri) {
+class Services_Twilio_Rest_Message extends Services_Twilio_InstanceResource
+{
+    protected function init($client, $uri)
+    {
         $this->setupSubresources(
             'media'
         );

@@ -1,9 +1,11 @@
 <?php
 
-use \Mockery as m;
+use Mockery as m;
 
-class NotificationTest extends PHPUnit_Framework_TestCase {
-    function testDelete() {
+class NotificationTest extends PHPUnit_Framework_TestCase
+{
+    function testDelete()
+    {
         $http = m::mock(new Services_Twilio_TinyHttp);
         $http->shouldReceive('delete')->once()
             ->with('/2010-04-01/Accounts/AC123/Notifications/NO123.json')

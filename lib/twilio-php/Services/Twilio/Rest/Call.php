@@ -78,12 +78,14 @@
  *
  *      If this call was an incoming call from a phone number with Caller ID Lookup enabled, the caller's name. Empty otherwise.
  */
-class Services_Twilio_Rest_Call extends Services_Twilio_InstanceResource {
+class Services_Twilio_Rest_Call extends Services_Twilio_InstanceResource
+{
 
     /**
      * Hang up the call
      */
-    public function hangup() {
+    public function hangup()
+    {
         $this->update('Status', 'completed');
     }
 
@@ -92,11 +94,13 @@ class Services_Twilio_Rest_Call extends Services_Twilio_InstanceResource {
      *
      * :param string $url: the new URL to retrieve call flow from.
      */
-    public function route($url) {
+    public function route($url)
+    {
         $this->update('Url', $url);
     }
 
-    protected function init($client, $uri) {
+    protected function init($client, $uri)
+    {
         $this->setupSubresources(
             'notifications',
             'recordings'

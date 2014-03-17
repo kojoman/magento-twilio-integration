@@ -1,6 +1,7 @@
 <?php
 
-class Services_Twilio_Rest_CredentialListMappings extends Services_Twilio_SIPListResource {
+class Services_Twilio_Rest_CredentialListMappings extends Services_Twilio_SIPListResource
+{
 
     /**
      * Creates a new CredentialListMapping instance
@@ -15,10 +16,13 @@ class Services_Twilio_Rest_CredentialListMappings extends Services_Twilio_SIPLis
      * :param array $params: a single array of parameters which is serialized and
      *      sent directly to the Twilio API.
      */
-    public function create($credential_list_sid, $params = array()) {
-        return parent::_create(array(
-            'CredentialListSid' => $credential_list_sid,
-        ) + $params);
+    public function create($credential_list_sid, $params = array())
+    {
+        return parent::_create(
+            array(
+                'CredentialListSid' => $credential_list_sid,
+            ) + $params
+        );
     }
 }
 

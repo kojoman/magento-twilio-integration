@@ -1,11 +1,11 @@
-<?php 
+<?php
 
 /*
  * This is a quick way to programmatically create orders in Magento. 
  * References have been taken from Magento source code and blog posts
  * on this specific topic.  
  * The main goal is to quickly create orders for test purposes. 
- */ 
+ */
 
 // Include common configurations
 include 'common.php';
@@ -23,8 +23,8 @@ include 'common.php';
 $customer = Mage::getModel('customer/customer');
 
 // Customer Variables
-$email 			= 'kojo+test@adepapa.com';
-$password 		= 'password';
+$email = 'kojo+test@adepapa.com';
+$password = 'password';
 
 $customer->setWebsiteId(Mage::app()->getWebsite()->getId());
 $customer->setStoreId(Mage::app()->getStore()->getId());
@@ -45,24 +45,24 @@ $customer->loadByEmail($email);
 // }
 
 //Create new customer if customer with specified email does not exist. 
-if(!$customer->getId()) {
-	echo "Customer does not exist.\n";
-	$customer->setEmail($email);
-	$customer->setFirstName('FirstName');  	//TODO: Customer First Name not appearing in admin
-	$customer->setLastName('LastName'); 	//TODO: Customer Last Name not appearing in admin
-	$customer->setPassword($password);
+if (!$customer->getId()) {
+    echo "Customer does not exist.\n";
+    $customer->setEmail($email);
+    $customer->setFirstName('FirstName'); //TODO: Customer First Name not appearing in admin
+    $customer->setLastName('LastName'); //TODO: Customer Last Name not appearing in admin
+    $customer->setPassword($password);
 
-	// Save new customer
-	try {
-		$customer->save();
-		$customer->setConfirmation(null);
-		$customer->save();
-		//$customer->sendNewAccountEmail();
-		//Mage::Log($customer->getName)
-	} catch (Exception $e) {
-		Zend_Debug::dump($e->getMessage());
-		Mage::logException($e->getMessage());
-	}
+    // Save new customer
+    try {
+        $customer->save();
+        $customer->setConfirmation(null);
+        $customer->save();
+        //$customer->sendNewAccountEmail();
+        //Mage::Log($customer->getName)
+    } catch (Exception $e) {
+        Zend_Debug::dump($e->getMessage());
+        Mage::logException($e->getMessage());
+    }
 }
 
 // Login customer
@@ -76,34 +76,34 @@ $quote->addProduct($product, new Varien_Object($buyInfo));
 
 // Create shipping and billing address for customer. Needed for checkout 
 $address = array(
-	'firstname' => 'FirstName',
-	'lastname'  => 'LastName', 
-	'street'	=> array (
-		'0' => 'Street Address part 1',
-		'1' => 'Street Address part 2',
-	),
-	'city'		=> 'New York',
-	'region_id' => '15',
-	'region' 	=> 'NY',
-	'postcode' 	=> '10000',
-	'country_id' => 'US', 
-	'telephone'	=> '1-234-567-8912', 
+    'firstname'  => 'FirstName',
+    'lastname'   => 'LastName',
+    'street'     => array(
+        '0' => 'Street Address part 1',
+        '1' => 'Street Address part 2',
+    ),
+    'city'       => 'New York',
+    'region_id'  => '15',
+    'region'     => 'NY',
+    'postcode'   => '10000',
+    'country_id' => 'US',
+    'telephone'  => '1-234-567-8912',
 );
 
 $quote->getBillingAddress()->addData($address);
 
 $quote->getShippingAddress()
-		->addData($address)
-		->setShippingMethod('flatrate_flatrate')
-		->setPaymentMethod('checkmo')
-		->setCollectShippingRates(true)
-		->collectTotals();
+    ->addData($address)
+    ->setShippingMethod('flatrate_flatrate')
+    ->setPaymentMethod('checkmo')
+    ->setCollectShippingRates(true)
+    ->collectTotals();
 
 $quote->setCheckoutMethod('guest')
-		->setCustomerId(null)
-		->setCustomerEmail($quote->getBillingAddress()->getEmail())
-		->setCustomerIsGuest(true)
-		->setCustomerGroupId(Mage_Customer_Model_Group::NOT_LOGGED_IN_ID);
+    ->setCustomerId(null)
+    ->setCustomerEmail($quote->getBillingAddress()->getEmail())
+    ->setCustomerIsGuest(true)
+    ->setCustomerGroupId(Mage_Customer_Model_Group::NOT_LOGGED_IN_ID);
 
 $quote->getPayment()->importData(array('method' => 'checkmo'));
 
@@ -236,4 +236,5 @@ $service->submitAll();
 
 // // // echo "hello world";
 
-// // ?>
+// //
+?>

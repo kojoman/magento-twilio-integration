@@ -1,6 +1,7 @@
 <?php
 
-class Services_Twilio_Rest_Credentials extends Services_Twilio_SIPListResource {
+class Services_Twilio_Rest_Credentials extends Services_Twilio_SIPListResource
+{
 
     /**
      * Creates a new Credential instance
@@ -18,11 +19,14 @@ class Services_Twilio_Rest_Credentials extends Services_Twilio_SIPListResource {
      * :param array $params: a single array of parameters which is serialized and
      *      sent directly to the Twilio API.
      */
-    public function create($username, $password, $params = array()) {
-        return parent::_create(array(
-            'Username' => $username,
-            'Password' => $password,
-        ) + $params);
+    public function create($username, $password, $params = array())
+    {
+        return parent::_create(
+            array(
+                'Username' => $username,
+                'Password' => $password,
+            ) + $params
+        );
     }
 
 }
