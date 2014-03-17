@@ -6,8 +6,10 @@
  * <http://www.twilio.com/docs/api/rest/incoming-phone-numbers#local>`_
  * documentation at twilio.com.
  */
-class Services_Twilio_Rest_IncomingPhoneNumbers extends Services_Twilio_ListResource {
-    function init($client, $uri) {
+class Services_Twilio_Rest_IncomingPhoneNumbers extends Services_Twilio_ListResource
+{
+    function init($client, $uri)
+    {
         $this->setupSubresources(
             'local',
             'toll_free',
@@ -15,7 +17,8 @@ class Services_Twilio_Rest_IncomingPhoneNumbers extends Services_Twilio_ListReso
         );
     }
 
-    function create(array $params = array()) {
+    function create(array $params = array())
+    {
         return parent::_create($params);
     }
 
@@ -40,10 +43,13 @@ class Services_Twilio_Rest_IncomingPhoneNumbers extends Services_Twilio_ListReso
      * :raises: a A :php:class:`Services_Twilio_RestException` if the number is
      *      invalid, not provided in E.164 format or for any other API exception.
      */
-    public function getNumber($number) {
-        $page = $this->getPage(0, 1, array(
-            'PhoneNumber' => $number
-        ));
+    public function getNumber($number)
+    {
+        $page = $this->getPage(
+            0, 1, array(
+                'PhoneNumber' => $number
+            )
+        );
         $items = $page->getItems();
         if (is_null($items) || empty($items)) {
             return null;
@@ -52,8 +58,14 @@ class Services_Twilio_Rest_IncomingPhoneNumbers extends Services_Twilio_ListReso
     }
 }
 
-class Services_Twilio_Rest_Local extends Services_Twilio_NumberType { }
+class Services_Twilio_Rest_Local extends Services_Twilio_NumberType
+{
+}
 
-class Services_Twilio_Rest_Mobile extends Services_Twilio_NumberType { }
+class Services_Twilio_Rest_Mobile extends Services_Twilio_NumberType
+{
+}
 
-class Services_Twilio_Rest_TollFree extends Services_Twilio_NumberType { }
+class Services_Twilio_Rest_TollFree extends Services_Twilio_NumberType
+{
+}

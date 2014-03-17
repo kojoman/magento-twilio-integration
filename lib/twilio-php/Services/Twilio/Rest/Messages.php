@@ -1,6 +1,7 @@
 <?php
 
-class Services_Twilio_Rest_Messages extends Services_Twilio_ListResource {
+class Services_Twilio_Rest_Messages extends Services_Twilio_ListResource
+{
 
     /**
      * Create a new Message instance
@@ -20,7 +21,8 @@ class Services_Twilio_Rest_Messages extends Services_Twilio_ListResource {
      *      sendMessage helper instead of this function.
      *
      */
-    public function create($params = array()) {
+    public function create($params = array())
+    {
         return parent::_create($params);
     }
 
@@ -54,12 +56,13 @@ class Services_Twilio_Rest_Messages extends Services_Twilio_ListResource {
      *      number is not a Twilio number registered to your account, or is
      *      unable to send MMS)
      */
-    public function sendMessage($from, $to, $body = null, $mediaUrls = null,
+    public function sendMessage(
+        $from, $to, $body = null, $mediaUrls = null,
         $params = array()
     ) {
         $postParams = array(
             'From' => $from,
-            'To' => $to,
+            'To'   => $to,
         );
         // When the request is made, this will get serialized into MediaUrl=a&MediaUrl=b
         if (!is_null($mediaUrls)) {

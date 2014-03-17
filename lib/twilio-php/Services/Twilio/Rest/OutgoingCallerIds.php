@@ -5,8 +5,10 @@ class Services_Twilio_Rest_OutgoingCallerIds
 {
     public function create($phoneNumber, array $params = array())
     {
-        return parent::_create(array(
-            'PhoneNumber' => $phoneNumber,
-        ) + $params);
+        return parent::_create(
+            array(
+                'PhoneNumber' => $phoneNumber,
+            ) + $params
+        );
     }
 }

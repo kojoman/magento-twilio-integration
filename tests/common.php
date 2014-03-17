@@ -5,13 +5,13 @@
  */
 
 // Please replace with specific path to your Magento root. 
-$magentoDir = '/var/www/vhosts/magento/'; 
+$magentoDir = '/var/www/vhosts/magento/';
 
 $mageFileName = $magentoDir . 'app/Mage.php';
 
-if(!file_exists($mageFileName)) {
-	echo $mageFileName. " was not found. Exiting now";
-	exit;
+if (!file_exists($mageFileName)) {
+    echo $mageFileName . " was not found. Exiting now";
+    exit;
 }
 
 require_once $mageFileName;

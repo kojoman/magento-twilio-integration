@@ -9,18 +9,18 @@ List Resources
 **************
 
 .. phpautoclass:: Services_Twilio_ListResource
-    :filename: ../Services/Twilio/ListResource.php
-    :members:
+:filename: ../Services/Twilio/ListResource.php
+        :members:
 
-All of the below classes inherit from the :php:class:`ListResource
-<Services_Twilio_ListResource>`.
+    All of the below classes inherit from the :php:class:`ListResource
+    <Services_Twilio_ListResource>`.
 
 Accounts
 ===========
 
 .. phpautoclass:: Services_Twilio_Rest_Accounts
-    :filename: ../Services/Twilio/Rest/Accounts.php
-    :members:
+:filename: ../Services/Twilio/Rest/Accounts.php
+        :members:
 
 AvailablePhoneNumbers
 ========================
@@ -34,9 +34,9 @@ AvailablePhoneNumbers
     Get a list of available phone numbers.
 
     :param string country: The 2-digit country code for numbers ('US', 'GB',
-        'CA')
-    :param string type: The type of phone number ('TollFree' or 'Local')
-    :return: An instance of the :php:class:`Services_Twilio_Rest_AvailablePhoneNumbers` resource.
+            'CA')
+        :param string type: The type of phone number ('TollFree' or 'Local')
+        :return: An instance of the :php:class:`Services_Twilio_Rest_AvailablePhoneNumbers` resource.
 
     .. php:attr:: available_phone_numbers
 
@@ -59,12 +59,12 @@ Calls
       Make an outgoing call
 
       :param string $from: The phone number to use as the caller id.
-      :param string $to: The number to call formatted with a '+' and country code
-      :param string $url: The fully qualified URL that should be consulted when
-                          the call connects. This value can also be an ApplicationSid.
-      :param array $params: An array of optional parameters for this call
+          :param string $to: The number to call formatted with a '+' and country code
+          :param string $url: The fully qualified URL that should be consulted when
+                              the call connects. This value can also be an ApplicationSid.
+          :param array $params: An array of optional parameters for this call
 
-      The **$params** array can contain the following keys:
+          The **$params** array can contain the following keys:
 
       *Method*
         The HTTP method Twilio should use when making its request to the above Url parameter's value. Defaults to POST. If an ApplicationSid parameter is present, this parameter is ignored.
@@ -94,66 +94,66 @@ CredentialListMappings
 =========================
 
 .. phpautoclass:: Services_Twilio_Rest_CredentialListMappings
-    :filename: ../Services/Twilio/Rest/CredentialListMappings.php
-    :members:
+:filename: ../Services/Twilio/Rest/CredentialListMappings.php
+        :members:
 
 
 CredentialLists
 =================
 
 .. phpautoclass:: Services_Twilio_Rest_CredentialLists
-    :filename: ../Services/Twilio/Rest/CredentialLists.php
-    :members:
+:filename: ../Services/Twilio/Rest/CredentialLists.php
+        :members:
 
 Credentials
 ==============
 
 .. phpautoclass:: Services_Twilio_Rest_Credentials
-    :filename: ../Services/Twilio/Rest/Credentials.php
-    :members:
+:filename: ../Services/Twilio/Rest/Credentials.php
+        :members:
 
 Domains
 ==========
 
 .. phpautoclass:: Services_Twilio_Rest_Domains
-    :filename: ../Services/Twilio/Rest/Domains.php
-    :members:
+:filename: ../Services/Twilio/Rest/Domains.php
+        :members:
 
 
 IncomingPhoneNumbers
 ========================
 
 .. phpautoclass:: Services_Twilio_Rest_IncomingPhoneNumbers,Services_Twilio_Rest_Local,Services_Twilio_Rest_Mobile,Services_Twilio_Rest_TollFree
-    :filename: ../Services/Twilio/Rest/IncomingPhoneNumbers.php
-    :members:
+:filename: ../Services/Twilio/Rest/IncomingPhoneNumbers.php
+        :members:
 
 IpAccessControlListMappings
 ==============================
 
 .. phpautoclass:: Services_Twilio_Rest_IpAccessControlListMappings
-    :filename: ../Services/Twilio/Rest/IpAccessControlListMappings.php
-    :members:
+:filename: ../Services/Twilio/Rest/IpAccessControlListMappings.php
+        :members:
 
 IpAccessControlLists
 =======================
 
 .. phpautoclass:: Services_Twilio_Rest_IpAccessControlLists
-    :filename: ../Services/Twilio/Rest/IpAccessControlLists.php
-    :members:
+:filename: ../Services/Twilio/Rest/IpAccessControlLists.php
+        :members:
 
 IpAddresses
 =======================
 
 .. phpautoclass:: Services_Twilio_Rest_IpAddresses
-    :filename: ../Services/Twilio/Rest/IpAddresses.php
-    :members:
+:filename: ../Services/Twilio/Rest/IpAddresses.php
+        :members:
 
 Media
 ======
 
 .. phpautoclass:: Services_Twilio_Rest_Media
-    :filename: ../Services/Twilio/Rest/Media.php
-    :members:
+:filename: ../Services/Twilio/Rest/Media.php
+        :members:
 
 Members
 ===========
@@ -171,8 +171,8 @@ Messages
 ========
 
 .. phpautoclass:: Services_Twilio_Rest_Messages
-    :filename: ../Services/Twilio/Rest/Messages.php
-    :members:
+:filename: ../Services/Twilio/Rest/Messages.php
+        :members:
 
 Queues
 ===========
@@ -188,8 +188,8 @@ Queues
      Create a new :php:class:`Services_Twilio_Rest_Queue`.
 
      :param string $friendly_name: The name of the new Queue.
-     :param array $params: An array of optional parameters and their values, 
-        like `MaxSize`.
+         :param array $params: An array of optional parameters and their values,
+            like `MaxSize`.
      :returns: A new :php:class:`Services_Twilio_Rest_Queue`
 
 
@@ -222,8 +222,8 @@ UsageTriggers
 
     :param string $category: The category of usage to fire a trigger for. A full list of categories can be found in the `Usage Categories documentation <http://www.twilio.com/docs/api/rest/usage-records#usage-categories>`_.
     :param string $value: Fire the trigger when usage crosses this value.
-    :param string $url: The URL to request when the trigger fires.
-    :param array $params: Optional parameters for this trigger. A full list of parameters can be found in the `Usage Trigger documentation <http://www.twilio.com/docs/api/rest/usage-triggers#list-post-optional-parameters>`_.
+        :param string $url: The URL to request when the trigger fires.
+        :param array $params: Optional parameters for this trigger. A full list of parameters can be found in the `Usage Trigger documentation <http://www.twilio.com/docs/api/rest/usage-triggers#list-post-optional-parameters>`_.
     :returns: :php:class:`Services_Twilio_Rest_UsageTrigger` The created trigger.
 
 
@@ -232,12 +232,12 @@ Instance Resources
 ********************
 
 .. phpautoclass:: Services_Twilio_InstanceResource
-    :filename: ../Services/Twilio/InstanceResource.php
-    :members:
+:filename: ../Services/Twilio/InstanceResource.php
+        :members:
 
-Below you will find a list of objects created by interacting with the Twilio
-API, and the methods and properties that can be called on them. These are
-derived from the :php:class:`ListResource <Services_Twilio_ListResource>` and
+    Below you will find a list of objects created by interacting with the Twilio
+    API, and the methods and properties that can be called on them. These are
+    derived from the :php:class:`ListResource <Services_Twilio_ListResource>` and
 :php:class:`InstanceResource <Services_Twilio_InstanceResource>` above.
 
 
@@ -402,8 +402,8 @@ Call
 ====
 
 .. phpautoclass:: Services_Twilio_Rest_Call
-    :filename: ../Services/Twilio/Rest/Call.php
-    :members:
+:filename: ../Services/Twilio/Rest/Call.php
+        :members:
 
 CallerId
 ============
@@ -483,57 +483,57 @@ CredentialListMapping
 =========================
 
 .. phpautoclass:: Services_Twilio_Rest_CredentialListMapping
-    :filename: ../Services/Twilio/Rest/CredentialListMapping.php
-    :members:
+:filename: ../Services/Twilio/Rest/CredentialListMapping.php
+        :members:
 
 
 CredentialList
 =================
 
 .. phpautoclass:: Services_Twilio_Rest_CredentialList
-    :filename: ../Services/Twilio/Rest/CredentialList.php
-    :members:
+:filename: ../Services/Twilio/Rest/CredentialList.php
+        :members:
 
 Credential
 ==============
 
 .. phpautoclass:: Services_Twilio_Rest_Credential
-    :filename: ../Services/Twilio/Rest/Credential.php
-    :members:
+:filename: ../Services/Twilio/Rest/Credential.php
+        :members:
 
 Domain
 ==========
 
 .. phpautoclass:: Services_Twilio_Rest_Domain
-    :filename: ../Services/Twilio/Rest/Domain.php
-    :members:
+:filename: ../Services/Twilio/Rest/Domain.php
+        :members:
 
 IncomingPhoneNumber
 ===================
 
 .. phpautoclass:: Services_Twilio_Rest_IncomingPhoneNumber
-    :filename: ../Services/Twilio/Rest/IncomingPhoneNumber.php
-    :members:
+:filename: ../Services/Twilio/Rest/IncomingPhoneNumber.php
+        :members:
 
 IpAccessControlListMapping
 ==============================
 
 .. phpautoclass:: Services_Twilio_Rest_IpAccessControlListMapping
-    :filename: ../Services/Twilio/Rest/IpAccessControlListMapping.php
-    :members:
+:filename: ../Services/Twilio/Rest/IpAccessControlListMapping.php
+        :members:
 
 IpAccessControlList
 =======================
 
 .. phpautoclass:: Services_Twilio_Rest_IpAccessControlList
-    :filename: ../Services/Twilio/Rest/IpAccessControlList.php
-    :members:
+:filename: ../Services/Twilio/Rest/IpAccessControlList.php
+        :members:
 
 IpAddress
 ==============
 .. phpautoclass:: Services_Twilio_Rest_IpAddress
-    :filename: ../Services/Twilio/Rest/IpAddress.php
-    :members:
+:filename: ../Services/Twilio/Rest/IpAddress.php
+        :members:
 
 
 Notification
@@ -625,8 +625,8 @@ Media
 =======
 
 .. phpautoclass:: Services_Twilio_Rest_MediaInstance
-    :filename: ../Services/Twilio/Rest/MediaInstance.php
-    :members:
+:filename: ../Services/Twilio/Rest/MediaInstance.php
+        :members:
 
 Member
 =======
@@ -640,9 +640,9 @@ Member
     Dequeue this member and immediately play the Twiml at the given ``$url``.
 
     :param string $url: The Twiml URL to play for this member, after dequeuing them
-    :param string $method: The HTTP method to use when fetching the Twiml URL. Defaults to POST.
-    :return: The dequeued member
-    :rtype: :php:class:`Member <Services_Twilio_Rest_Member>` 
+        :param string $method: The HTTP method to use when fetching the Twiml URL. Defaults to POST.
+        :return: The dequeued member
+        :rtype: :php:class:`Member <Services_Twilio_Rest_Member>`
 
 
 Participant
@@ -756,8 +756,8 @@ Message
 =======
 
 .. phpautoclass:: Services_Twilio_Rest_Message
-    :filename: ../Services/Twilio/Rest/Message.php
-    :members:
+:filename: ../Services/Twilio/Rest/Message.php
+        :members:
 
 SmsMessage
 ===========

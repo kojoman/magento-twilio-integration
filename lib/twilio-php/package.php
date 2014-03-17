@@ -36,14 +36,15 @@ require_once 'PEAR/PackageFileManager/File.php';
 require_once 'PEAR/PackageFileManager2.php';
 PEAR::setErrorHandling(PEAR_ERROR_DIE);
 
-$api_version     = '3.12.2';
-$api_state       = 'stable';
+$api_version = '3.12.2';
+$api_state = 'stable';
 
 $release_version = '3.12.2';
-$release_state   = 'stable';
-$release_notes   = 'Fixes issue with string representation of resources';
+$release_state = 'stable';
+$release_notes = 'Fixes issue with string representation of resources';
 
-$description = <<<DESC
+$description
+    = <<<DESC
 A SDK (or helper library, as we're calling them) for PHP developers to write
 applications against Twilio's REST API and generate TwiML responses.
 DESC;
@@ -52,16 +53,16 @@ $package = new PEAR_PackageFileManager2();
 
 $package->setOptions(
     array(
-        'filelistgenerator'       => 'file',
-        'simpleoutput'            => true,
-        'baseinstalldir'          => '/',
-        'packagedirectory'        => './',
-        'dir_roles'               => array(
-            'Services'            => 'php',
-            'Services/Twilio'     => 'php',
-            'tests'               => 'test'
+        'filelistgenerator' => 'file',
+        'simpleoutput'      => true,
+        'baseinstalldir'    => '/',
+        'packagedirectory'  => './',
+        'dir_roles'         => array(
+            'Services'        => 'php',
+            'Services/Twilio' => 'php',
+            'tests'           => 'test'
         ),
-        'ignore'                  => array(
+        'ignore'            => array(
             'package.php',
             '*.tgz',
             'scratch/*',

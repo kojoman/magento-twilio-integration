@@ -14,7 +14,8 @@ Mage::log($installer);
 
 $installer->startSetup();
 
-$installer->run("
+$installer->run(
+    "
     CREATE TABLE `{$installer->getTable('kojoman/twilio')}` (
       `sms_id` int(11) NOT NULL auto_increment,
       `sms_to` VARCHAR(255) NOT NULL default '',
@@ -25,6 +26,7 @@ $installer->run("
     ) ENGINE=InnoDB DEFAULT CHARSET = UTF8;
 
     INSERT INTO `{$installer->getTable('kojoman/twilio')}` VALUES (1, '(123) 456-7890', 'Hello World', '2014-02-24 00:00:00','2014-02-24 23:12:30');
-    ");
+    "
+);
 
 $installer->endSetup();

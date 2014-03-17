@@ -34,10 +34,10 @@ class Varien_Autoload
     static protected $_instance;
     static protected $_scope = 'default';
 
-    protected $_isIncludePathDefined= null;
-    protected $_collectClasses      = false;
-    protected $_collectPath         = null;
-    protected $_arrLoadedClasses    = array();
+    protected $_isIncludePathDefined = null;
+    protected $_collectClasses = false;
+    protected $_collectPath = null;
+    protected $_arrLoadedClasses = array();
 
     /**
      * Class constructor
@@ -46,8 +46,8 @@ class Varien_Autoload
     {
         $this->_isIncludePathDefined = defined('COMPILER_INCLUDE_PATH');
         if (defined('COMPILER_COLLECT_PATH')) {
-            $this->_collectClasses  = true;
-            $this->_collectPath     = COMPILER_COLLECT_PATH;
+            $this->_collectClasses = true;
+            $this->_collectPath = COMPILER_COLLECT_PATH;
         }
         self::registerScope(self::$_scope);
     }
@@ -84,17 +84,17 @@ class Varien_Autoload
             $this->_arrLoadedClasses[self::$_scope][] = $class;
         }
         if ($this->_isIncludePathDefined) {
-            $classFile =  COMPILER_INCLUDE_PATH . DIRECTORY_SEPARATOR . $class;
+            $classFile = COMPILER_INCLUDE_PATH . DIRECTORY_SEPARATOR . $class;
         } else {
             $classFile = str_replace(' ', DIRECTORY_SEPARATOR, ucwords(str_replace('_', ' ', $class)));
         }
-        $classFile.= '.php';
+        $classFile .= '.php';
         //echo $classFile;die();
         // Hack to allow Magento to recognize Twilio autoload 
         if (stream_resolve_include_path($classFile)) {
             return include $classFile;
         } else {
-            return false; 
+            return false;
         }
     }
 
@@ -109,7 +109,7 @@ class Varien_Autoload
     {
         self::$_scope = $code;
         if (defined('COMPILER_INCLUDE_PATH')) {
-            @include COMPILER_INCLUDE_PATH . DIRECTORY_SEPARATOR . self::SCOPE_FILE_PREFIX.$code.'.php';
+            @include COMPILER_INCLUDE_PATH . DIRECTORY_SEPARATOR . self::SCOPE_FILE_PREFIX . $code . '.php';
         }
     }
 
@@ -151,7 +151,7 @@ class Varien_Autoload
         }
 
         foreach ($this->_arrLoadedClasses as $scope => $classes) {
-            $file = $this->_collectPath.DIRECTORY_SEPARATOR.$scope.'.csv';
+            $file = $this->_collectPath . DIRECTORY_SEPARATOR . $scope . '.csv';
             $data = array();
             if (file_exists($file)) {
                 $data = explode("\n", file_get_contents($file));
@@ -159,10 +159,10 @@ class Varien_Autoload
                     $class = explode(':', $class);
                     $searchIndex = array_search($class[0], $classes);
                     if ($searchIndex !== false) {
-                        $class[1]+=1;
+                        $class[1] += 1;
                         unset($classes[$searchIndex]);
                     }
-                    $data[$index] = $class[0].':'.$class[1];
+                    $data[$index] = $class[0] . ':' . $class[1];
                 }
             }
             foreach ($classes as $class) {
