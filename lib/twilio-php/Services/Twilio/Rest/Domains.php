@@ -1,7 +1,6 @@
 <?php
 
-class Services_Twilio_Rest_Domains extends Services_Twilio_SIPListResource
-{
+class Services_Twilio_Rest_Domains extends Services_Twilio_SIPListResource {
 
     /**
      * Creates a new Domain instance
@@ -19,14 +18,11 @@ class Services_Twilio_Rest_Domains extends Services_Twilio_SIPListResource
      * :param array $params: a single array of parameters which is serialized and
      *      sent directly to the Twilio API.
      */
-    public function create($friendly_name, $domain_name, $params = array())
-    {
-        return parent::_create(
-            array(
-                'FriendlyName' => $friendly_name,
-                'DomainName'   => $domain_name,
-            ) + $params
-        );
+    public function create($friendly_name, $domain_name, $params = array()) {
+        return parent::_create(array(
+            'FriendlyName' => $friendly_name,
+            'DomainName' => $domain_name,
+        ) + $params);
     }
 }
 

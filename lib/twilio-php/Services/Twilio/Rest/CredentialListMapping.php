@@ -27,10 +27,9 @@
  *
  *    The subresources associated with this mapping (Credentials)
  */
-class Services_Twilio_Rest_CredentialListMapping extends Services_Twilio_InstanceResource
-{
-    protected function init($client, $uri)
-    {
+
+class Services_Twilio_Rest_CredentialListMapping extends Services_Twilio_InstanceResource {
+    protected function init($client, $uri) {
         $this->setupSubresources(
             'credentials'
         );

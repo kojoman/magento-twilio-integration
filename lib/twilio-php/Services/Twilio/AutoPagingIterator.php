@@ -9,8 +9,7 @@ class Services_Twilio_AutoPagingIterator
 
     private $_args;
 
-    public function __construct($generator, $page, $size, $filters)
-    {
+    public function __construct($generator, $page, $size, $filters) {
         $this->generator = $generator;
         $this->page = $page;
         $this->size = $size;
@@ -19,8 +18,8 @@ class Services_Twilio_AutoPagingIterator
 
         // Save a backup for rewind()
         $this->_args = array(
-            'page'    => $page,
-            'size'    => $size,
+            'page' => $page,
+            'size' => $size,
             'filters' => $filters,
         );
     }
@@ -44,7 +43,8 @@ class Services_Twilio_AutoPagingIterator
         try {
             $this->loadIfNecessary();
             return next($this->items);
-        } catch (Services_Twilio_RestException $e) {
+        }
+        catch (Services_Twilio_RestException $e) {
             // 20006 is an out of range paging error, everything else is valid
             if ($e->getCode() != 20006) {
                 throw $e;
@@ -75,7 +75,8 @@ class Services_Twilio_AutoPagingIterator
         try {
             $this->loadIfNecessary();
             return key($this->items) !== null;
-        } catch (Services_Twilio_RestException $e) {
+        }
+        catch (Services_Twilio_RestException $e) {
             // 20006 is an out of range paging error, everything else is valid
             if ($e->getCode() != 20006) {
                 throw $e;
@@ -89,19 +90,17 @@ class Services_Twilio_AutoPagingIterator
      */
     protected function loadIfNecessary()
     {
-        if ( // Empty because it's the first time or last page was empty
+        if (// Empty because it's the first time or last page was empty
             empty($this->items)
             // null key when the items list is iterated over completely
             || key($this->items) === null
         ) {
-            $page = call_user_func_array(
-                $this->generator, array(
-                    $this->page,
-                    $this->size,
-                    $this->filters,
-                    $this->next_page_uri,
-                )
-            );
+            $page = call_user_func_array($this->generator, array(
+                $this->page,
+                $this->size,
+                $this->filters,
+                $this->next_page_uri,
+            ));
             $this->next_page_uri = $page->next_page_uri;
             $this->items = $page->getItems();
             $this->page = $this->page + 1;

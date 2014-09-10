@@ -1,7 +1,6 @@
 <?php
 
-class Services_Twilio_Rest_IpAccessControlListMappings extends Services_Twilio_SIPListResource
-{
+class Services_Twilio_Rest_IpAccessControlListMappings extends Services_Twilio_SIPListResource {
 
     /**
      * Creates a new IpAccessControlListMapping instance
@@ -17,13 +16,10 @@ class Services_Twilio_Rest_IpAccessControlListMappings extends Services_Twilio_S
      * :param array $params: a single array of parameters which is serialized and
      *      sent directly to the Twilio API.
      */
-    public function create($ip_access_control_list_sid, $params = array())
-    {
-        return parent::_create(
-            array(
-                'IpAccessControlListSid' => $ip_access_control_list_sid,
-            ) + $params
-        );
+    public function create($ip_access_control_list_sid, $params = array()) {
+        return parent::_create(array(
+            'IpAccessControlListSid' => $ip_access_control_list_sid,
+        ) + $params);
     }
 }
 

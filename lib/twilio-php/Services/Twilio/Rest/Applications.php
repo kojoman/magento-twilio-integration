@@ -5,10 +5,8 @@ class Services_Twilio_Rest_Applications
 {
     public function create($name, array $params = array())
     {
-        return parent::_create(
-            array(
-                'FriendlyName' => $name
-            ) + $params
-        );
+        return parent::_create(array(
+            'FriendlyName' => $name
+        ) + $params);
     }
 }

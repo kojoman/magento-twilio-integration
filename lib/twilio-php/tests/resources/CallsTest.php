@@ -1,9 +1,8 @@
 <?php
 
-use Mockery as m;
+use \Mockery as m;
 
-class CallsTest extends PHPUnit_Framework_TestCase
-{
+class CallsTest extends PHPUnit_Framework_TestCase {
     /**
      * @dataProvider sidProvider
      */

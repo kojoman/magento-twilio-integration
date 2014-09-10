@@ -6,8 +6,7 @@
  * Link:     https://twilio-php.readthedocs.org/en/latest/
  */
 
-function Services_Twilio_autoload($className)
-{
+function Services_Twilio_autoload($className) {
     if (substr($className, 0, 15) != 'Services_Twilio') {
         return false;
     }
@@ -42,7 +41,7 @@ spl_autoload_register('Services_Twilio_autoload');
  */
 class Services_Twilio extends Services_Twilio_Resource
 {
-    const USER_AGENT = 'twilio-php/3.12.2';
+    const USER_AGENT = 'twilio-php/3.12.5';
 
     protected $http;
     protected $retryAttempts;
@@ -58,35 +57,35 @@ class Services_Twilio extends Services_Twilio_Resource
         $retryAttempts = 1
     ) {
         $this->version = in_array($version, $this->versions) ?
-            $version : end($this->versions);
+                $version : end($this->versions);
 
         if (null === $_http) {
             if (!in_array('openssl', get_loaded_extensions())) {
                 throw new Services_Twilio_HttpException("The OpenSSL extension is required but not currently enabled. For more information, see http://php.net/manual/en/book.openssl.php");
             }
             if (in_array('curl', get_loaded_extensions())) {
-                $_http = new Services_Twilio_TinyHttp(
-                    "https://api.twilio.com",
-                    array(
-                        "curlopts" => array(
-                            CURLOPT_USERAGENT  => self::USER_AGENT,
-                            CURLOPT_HTTPHEADER => array('Accept-Charset: utf-8'),
-                            CURLOPT_CAINFO     => dirname(__FILE__) . '/cacert.pem',
-                        ),
-                    )
-                );
+                  $_http = new Services_Twilio_TinyHttp(
+                      "https://api.twilio.com",
+                      array(
+                          "curlopts" => array(
+                              CURLOPT_USERAGENT => self::qualifiedUserAgent(phpversion()),
+                              CURLOPT_HTTPHEADER => array('Accept-Charset: utf-8'),
+                              CURLOPT_CAINFO => dirname(__FILE__) . '/cacert.pem',
+                          ),
+                      )
+                  );
             } else {
                 $_http = new Services_Twilio_HttpStream(
                     "https://api.twilio.com",
                     array(
                         "http_options" => array(
                             "http" => array(
-                                "user_agent" => self::USER_AGENT,
-                                "header"     => "Accept-Charset: utf-8\r\n",
+                                "user_agent" => self::qualifiedUserAgent(phpversion()),
+                                "header" => "Accept-Charset: utf-8\r\n",
                             ),
-                            "ssl"  => array(
-                                'verify_peer'  => true,
-                                'cafile'       => dirname(__FILE__) . '/cacert.pem',
+                            "ssl" => array(
+                                'verify_peer' => true,
+                                'cafile' => dirname(__FILE__) . '/cacert.pem',
                                 'verify_depth' => 5,
                             ),
                         ),
@@ -102,13 +101,22 @@ class Services_Twilio extends Services_Twilio_Resource
     }
 
     /**
+     * Fully qualified user agent with the current PHP Version.
+     *
+     * :return: the user agent
+     * :rtype: string
+     */
+    public static function qualifiedUserAgent($php_version) {
+        return self::USER_AGENT . " (php $php_version)";
+    }
+
+    /**
      * Get the api version used by the rest client
      *
      * :return: the API version in use
      * :returntype: string
      */
-    public function getVersion()
-    {
+    public function getVersion() {
         return $this->version;
     }
 
@@ -118,8 +126,7 @@ class Services_Twilio extends Services_Twilio_Resource
      * :return: the number of retry attempts
      * :rtype: int
      */
-    public function getRetryAttempts()
-    {
+    public function getRetryAttempts() {
         return $this->retryAttempts;
     }
 
@@ -138,8 +145,7 @@ class Services_Twilio extends Services_Twilio_Resource
      * :return: the URI that should be requested by the library
      * :returntype: string
      */
-    public static function getRequestUri($path, $params, $full_uri = false)
-    {
+    public static function getRequestUri($path, $params, $full_uri = false) {
         $json_path = $full_uri ? $path : "$path.json";
         if (!$full_uri && !empty($params)) {
             $query_path = $json_path . '?' . http_build_query($params, '', '&');
@@ -159,8 +165,7 @@ class Services_Twilio extends Services_Twilio_Resource
      * :return: The object representation of the resource
      * :rtype: object
      */
-    protected function _makeIdempotentRequest($callable, $uri, $retriesLeft)
-    {
+    protected function _makeIdempotentRequest($callable, $uri, $retriesLeft) {
         $response = call_user_func_array($callable, array($uri));
         list($status, $headers, $body) = $response;
         if ($status >= 500 && $retriesLeft > 0) {
@@ -181,15 +186,12 @@ class Services_Twilio extends Services_Twilio_Resource
      * :return: The object representation of the resource
      * :rtype: object
      */
-    public function retrieveData(
-        $path, $params = array(),
+    public function retrieveData($path, $params = array(),
         $full_uri = false
     ) {
         $uri = self::getRequestUri($path, $params, $full_uri);
-        return $this->_makeIdempotentRequest(
-            array($this->http, 'get'),
-            $uri, $this->retryAttempts
-        );
+        return $this->_makeIdempotentRequest(array($this->http, 'get'),
+            $uri, $this->retryAttempts);
     }
 
     /**
@@ -204,10 +206,8 @@ class Services_Twilio extends Services_Twilio_Resource
     public function deleteData($path, $params = array())
     {
         $uri = self::getRequestUri($path, $params);
-        return $this->_makeIdempotentRequest(
-            array($this->http, 'delete'),
-            $uri, $this->retryAttempts
-        );
+        return $this->_makeIdempotentRequest(array($this->http, 'delete'),
+            $uri, $this->retryAttempts);
     }
 
     /**
@@ -242,36 +242,35 @@ class Services_Twilio extends Services_Twilio_Resource
      * :return: The encoded query string
      * :rtype: string
      */
-    public static function buildQuery($queryData, $numericPrefix = '')
-    {
-        $query = '';
-        // Loop through all of the $query_data
-        foreach ($queryData as $key => $value) {
-            // If the key is an int, add the numeric_prefix to the beginning
-            if (is_int($key)) {
-                $key = $numericPrefix . $key;
-            }
+    public static function buildQuery($queryData, $numericPrefix = '') {
+            $query = '';
+            // Loop through all of the $query_data
+            foreach ($queryData as $key => $value) {
+                // If the key is an int, add the numeric_prefix to the beginning
+                if (is_int($key)) {
+                    $key = $numericPrefix . $key;
+                }
 
-            // If the value is an array, we will end up recursing
-            if (is_array($value)) {
-                // Loop through the values
-                foreach ($value as $value2) {
+                // If the value is an array, we will end up recursing
+                if (is_array($value)) {
+                    // Loop through the values
+                    foreach ($value as $value2) {
+                        // Add an arg_separator if needed
+                        if ($query !== '') {
+                            $query .= '&';
+                        }
+                        // Recurse
+                        $query .= self::buildQuery(array($key => $value2), $numericPrefix);
+                    }
+                } else {
                     // Add an arg_separator if needed
                     if ($query !== '') {
                         $query .= '&';
                     }
-                    // Recurse
-                    $query .= self::buildQuery(array($key => $value2), $numericPrefix);
+                    // Add the key and the urlencoded value (as a string)
+                    $query .= $key . '=' . urlencode((string)$value);
                 }
-            } else {
-                // Add an arg_separator if needed
-                if ($query !== '') {
-                    $query .= '&';
-                }
-                // Add the key and the urlencoded value (as a string)
-                $query .= $key . '=' . urlencode((string)$value);
             }
-        }
         return $query;
     }
 

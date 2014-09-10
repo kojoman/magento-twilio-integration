@@ -9,8 +9,7 @@
  * @license  http://creativecommons.org/licenses/MIT/ MIT
  * @link     http://pear.php.net/package/Services_Twilio
  */
-abstract class Services_Twilio_Resource
-{
+abstract class Services_Twilio_Resource {
     protected $subresources;
 
     public function __construct($client, $uri, $params = array())
@@ -31,8 +30,7 @@ abstract class Services_Twilio_Resource
         // Left empty for derived classes to implement
     }
 
-    public function getSubresources($name = null)
-    {
+    public function getSubresources($name = null) {
         if (isset($name)) {
             return isset($this->subresources[$name])
                 ? $this->subresources[$name]
@@ -73,10 +71,8 @@ abstract class Services_Twilio_Resource
 
     public static function decamelize($word)
     {
-        $callback = create_function(
-            '$matches',
-            'return strtolower(strlen("$matches[1]") ? "$matches[1]_$matches[2]" : "$matches[2]");'
-        );
+        $callback = create_function('$matches',
+            'return strtolower(strlen("$matches[1]") ? "$matches[1]_$matches[2]" : "$matches[2]");');
 
         return preg_replace_callback(
             '/(^|[a-z])([A-Z])/',
@@ -91,29 +87,23 @@ abstract class Services_Twilio_Resource
      * incoming_phone_numbers => IncomingPhoneNumbers
      *
      * @param string $word The word to camelize
-     *
      * @return string
      */
-    public static function camelize($word)
-    {
+    public static function camelize($word) {
         $callback = create_function('$matches', 'return strtoupper("$matches[2]");');
 
-        return preg_replace_callback(
-            '/(^|_)([a-z])/',
+        return preg_replace_callback('/(^|_)([a-z])/',
             $callback,
-            $word
-        );
+            $word);
     }
 
     /**
      * Get the value of a property on this resource.
      *
      * @param string $key The property name
-     *
      * @return mixed Could be anything.
      */
-    public function __get($key)
-    {
+    public function __get($key) {
         if ($subresource = $this->getSubresources($key)) {
             return $subresource;
         }
@@ -130,8 +120,7 @@ abstract class Services_Twilio_Resource
      * Note that echoing an object before an HTTP request has been made to
      * "fill in" its properties may return an empty object
      */
-    public function __toString()
-    {
+    public function __toString() {
         $out = array();
         foreach ($this as $key => $value) {
             if ($key !== 'client' && $key !== 'subresources') {

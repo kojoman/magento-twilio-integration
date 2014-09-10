@@ -7,7 +7,7 @@ class Services_Twilio_Rest_Calls
     public static function isApplicationSid($value)
     {
         return strlen($value) == 34
-        && !(strpos($value, "AP") === false);
+            && !(strpos($value, "AP") === false);
     }
 
     public function create($from, $to, $url, array $params = array())

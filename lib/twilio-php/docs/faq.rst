@@ -5,6 +5,24 @@ Frequently Asked Questions
 Hopefully you can find an answer here to one of your questions. If not, please
 contact `help@twilio.com <mailto:help@twilio.com>`_.
 
+Debugging Requests
+------------------
+
+Sometimes the library generates unexpected output. The simplest way to debug is
+to examine the HTTP request that twilio-php actually sent over the wire. You
+can turn on debugging with a simple flag:
+
+.. code-block:: php
+
+    require('Services/Twilio.php');
+
+    $client = new Services_Twilio('AC123', '456bef');
+    $client->http->debug = true;
+
+Then make requests as you normally would. The URI, method, headers, and body
+of HTTP requests will be logged via the ``error_log`` function.
+
+
 require: Failed to open stream messages
 -----------------------------------------
 
@@ -105,8 +123,8 @@ Manually add Twilio's SSL certificate
 
 The PHP curl library can also manually verify an SSL certificate. In your
 browser, navigate to
-`https://github.com/twilio/twilio-php/blob/master/Services/twilio_ssl_certificate.crt
-<https://github.com/twilio/twilio-php/blob/master/Services/twilio_ssl_certificate.crt>`_ 
+`https://github.com/twilio/twilio-php/blob/master/Services/cacert.pem
+<https://github.com/twilio/twilio-php/blob/master/Services/cacert.pem>`_ 
 and download the file. (**Note**: If your browser presents ANY warnings
 at this time, your Internet connection may be compromised. Do not download the
 file, and do not proceed with this step). Place this file in the same folder as
@@ -125,7 +143,7 @@ with this one:
         array('curlopts' => array(
             CURLOPT_SSL_VERIFYPEER => true, 
             CURLOPT_SSL_VERIFYHOST => 2, 
-            CURLOPT_CAINFO => getcwd() . "/twilio_ssl_certificate.crt")));
+            CURLOPT_CAINFO => getcwd() . "/cacert.pem")));
 
     $client = new Services_Twilio($sid, $token, "2010-04-01", $http);
 

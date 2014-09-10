@@ -5,7 +5,7 @@
  *
  * @category Services
  * @package  Services_Twilio
- * @author   Jeff Lindsay <jeff.lindsay@twilio.com>
+ * @author Jeff Lindsay <jeff.lindsay@twilio.com>
  * @license  http://creativecommons.org/licenses/MIT/ MIT
  */
 class Services_Twilio_Capability
@@ -20,15 +20,15 @@ class Services_Twilio_Capability
      * functions allowXXXX.
      *
      * @param $accountSid the account sid to which this token is granted access
-     * @param $authToken  the secret key used to sign the token. Note, this auth
-     *                    token is not visible to the user of the token.
+     * @param $authToken the secret key used to sign the token. Note, this auth
+     *        token is not visible to the user of the token.
      */
     public function __construct($accountSid, $authToken)
     {
         $this->accountSid = $accountSid;
         $this->authToken = $authToken;
         $this->scopes = array();
-        $this->clientName = false;
+		$this->clientName = false;
     }
 
     /**
@@ -52,27 +52,23 @@ class Services_Twilio_Capability
                 'Client name must not be a zero length string.');
         }
 
-        $this->clientName = $clientName;
-        $this->allow(
-            'client', 'incoming',
-            array('clientName' => $clientName)
-        );
+		$this->clientName = $clientName;
+        $this->allow('client', 'incoming',
+            array('clientName' => $clientName));
     }
 
     /**
      * Allow the user of this token to make outgoing connections.
      *
-     * @param $appSid    the application to which this token grants access
+     * @param $appSid the application to which this token grants access
      * @param $appParams signed parameters that the user of this token cannot
-     *                   overwrite.
+     *        overwrite.
      */
-    public function allowClientOutgoing($appSid, array $appParams = array())
+    public function allowClientOutgoing($appSid, array $appParams=array())
     {
-        $this->allow(
-            'client', 'outgoing', array(
-                'appSid'    => $appSid,
-                'appParams' => http_build_query($appParams, '', '&'))
-        );
+        $this->allow('client', 'outgoing', array(
+            'appSid' => $appSid,
+            'appParams' => http_build_query($appParams, '', '&')));
     }
 
     /**
@@ -80,14 +76,12 @@ class Services_Twilio_Capability
      *
      * @param $filters key/value filters to apply to the event stream
      */
-    public function allowEventStream(array $filters = array())
+    public function allowEventStream(array $filters=array())
     {
-        $this->allow(
-            'stream', 'subscribe', array(
-                'path'   => '/2010-04-01/Events',
-                'params' => http_build_query($filters, '', '&'),
-            )
-        );
+        $this->allow('stream', 'subscribe', array(
+            'path' => '/2010-04-01/Events',
+            'params' => http_build_query($filters, '', '&'),
+        ));
     }
 
     /**
@@ -95,23 +89,21 @@ class Services_Twilio_Capability
      * previously has been granted to this token.
      *
      * @param $ttl the expiration time of the token (in seconds). Default
-     *             value is 3600 (1hr)
-     *
+     *        value is 3600 (1hr)
      * @return the newly generated token that is valid for $ttl seconds
      */
     public function generateToken($ttl = 3600)
     {
         $payload = array(
             'scope' => array(),
-            'iss'   => $this->accountSid,
-            'exp'   => time() + $ttl,
+            'iss' => $this->accountSid,
+            'exp' => time() + $ttl,
         );
         $scopeStrings = array();
 
         foreach ($this->scopes as $scope) {
-            if ($scope->privilege == "outgoing" && $this->clientName) {
-                $scope->params["clientName"] = $this->clientName;
-            }
+			if ($scope->privilege == "outgoing" && $this->clientName)
+				$scope->params["clientName"] = $this->clientName;
             $scopeStrings[] = $scope->toString();
         }
 
@@ -119,8 +111,7 @@ class Services_Twilio_Capability
         return JWT::encode($payload, $this->authToken, 'HS256');
     }
 
-    protected function allow($service, $privilege, $params)
-    {
+    protected function allow($service, $privilege, $params) {
         $this->scopes[] = new ScopeURI($service, $privilege, $params);
     }
 }
@@ -155,7 +146,7 @@ class ScopeURI
     {
         $uri = "scope:{$this->service}:{$this->privilege}";
         if (count($this->params)) {
-            $uri .= "?" . http_build_query($this->params, '', '&');
+            $uri .= "?".http_build_query($this->params, '', '&');
         }
         return $uri;
     }
@@ -163,8 +154,7 @@ class ScopeURI
     /**
      * Parse a scope URI into a ScopeURI object
      *
-     * @param string $uri The scope URI
-     *
+     * @param string    $uri  The scope URI
      * @return ScopeURI The parsed scope uri
      */
     public static function parse($uri)
@@ -239,12 +229,12 @@ class JWT
     }
 
     /**
-     * @param object|array $payload PHP object or array
-     * @param string       $key     The secret key
-     * @param string       $algo    The signing algorithm
-     *
-     * @return string A JWT
-     */
+      * @param object|array $payload PHP object or array
+      * @param string       $key     The secret key
+      * @param string       $algo    The signing algorithm
+      *
+      * @return string A JWT
+      */
     public static function encode($payload, $key, $algo = 'HS256')
     {
         $header = array('typ' => 'JWT', 'alg' => $algo);
@@ -290,10 +280,9 @@ class JWT
         $obj = json_decode($input);
         if (function_exists('json_last_error') && $errno = json_last_error()) {
             JWT::handleJsonError($errno);
-        } else {
-            if ($obj === null && $input !== 'null') {
-                throw new DomainException('Null result with non-null input');
-            }
+        }
+        else if ($obj === null && $input !== 'null') {
+            throw new DomainException('Null result with non-null input');
         }
         return $obj;
     }
@@ -308,10 +297,9 @@ class JWT
         $json = json_encode($input);
         if (function_exists('json_last_error') && $errno = json_last_error()) {
             JWT::handleJsonError($errno);
-        } else {
-            if ($json === 'null' && $input !== null) {
-                throw new DomainException('Null result with non-null input');
-            }
+        }
+        else if ($json === 'null' && $input !== null) {
+            throw new DomainException('Null result with non-null input');
         }
         return $json;
     }
@@ -346,13 +334,13 @@ class JWT
     private static function handleJsonError($errno)
     {
         $messages = array(
-            JSON_ERROR_DEPTH     => 'Maximum stack depth exceeded',
+            JSON_ERROR_DEPTH => 'Maximum stack depth exceeded',
             JSON_ERROR_CTRL_CHAR => 'Unexpected control character found',
-            JSON_ERROR_SYNTAX    => 'Syntax error, malformed JSON'
+            JSON_ERROR_SYNTAX => 'Syntax error, malformed JSON'
         );
         throw new DomainException(isset($messages[$errno])
-                ? $messages[$errno]
-                : 'Unknown JSON error: ' . $errno
+            ? $messages[$errno]
+            : 'Unknown JSON error: ' . $errno
         );
     }
 }

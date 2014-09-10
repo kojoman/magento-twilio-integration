@@ -18,8 +18,7 @@ abstract class Services_Twilio_ListResource extends Services_Twilio_Resource
     implements IteratorAggregate, Countable
 {
 
-    public function __construct($client, $uri)
-    {
+    public function __construct($client, $uri) {
         $name = $this->getResourceName(true);
         /*
          * By default trim the 's' from the end of the list name to get the
@@ -40,8 +39,7 @@ abstract class Services_Twilio_ListResource extends Services_Twilio_Resource
      * :return: The resource
      * :rtype: :php:class:`InstanceResource <Services_Twilio_InstanceResource>`
      */
-    public function get($sid)
-    {
+    public function get($sid) {
         $instance = new $this->instance_name(
             $this->client, $this->uri . "/$sid"
         );
@@ -121,12 +119,10 @@ abstract class Services_Twilio_ListResource extends Services_Twilio_Resource
         if ($deep_paging_uri !== null) {
             $page = $this->client->retrieveData($deep_paging_uri, array(), true);
         } else {
-            $page = $this->client->retrieveData(
-                $this->uri, array(
-                    'Page'     => $page,
-                    'PageSize' => $size,
-                ) + $filters
-            );
+            $page = $this->client->retrieveData($this->uri, array(
+                'Page' => $page,
+                'PageSize' => $size,
+            ) + $filters);
         }
 
         /* create a new PHP object for each json obj in the api response. */
@@ -153,8 +149,7 @@ abstract class Services_Twilio_ListResource extends Services_Twilio_Resource
      * :return: The total number of instance members
      * :rtype: integer
      */
-    public function count()
-    {
+    public function count() {
         try {
             $page = $this->getPage(0, 1);
             return $page ? (int)$page->total : 0;

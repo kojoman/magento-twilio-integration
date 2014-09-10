@@ -52,8 +52,8 @@ Adding an IpAddress to an IpAccessControlList
 ==============================================
 
 Now it's time to add an :class:`IpAddress
-    <Services_Twilio_Rest_IpAddress>` to your new :class:`IpAccessControlList
-    <Services_Twilio_Rest_IpAccessControlList>`.
+<Services_Twilio_Rest_IpAddress>` to your new :class:`IpAccessControlList
+<Services_Twilio_Rest_IpAccessControlList>`.
 
 .. code-block:: php
 
@@ -74,7 +74,7 @@ Once you've created a :class:`Domain <Services_Twilio_Rest_Domain>` and an
 :class:`IpAccessControlList <Services_Twilio_Rest_IpAccessControlList>`
 you need to associate them. To do this,
 create an :class:`IpAccessControlListMapping
-    <Services_Twilio_Rest_IpAccessControlListMapping>`.
+<Services_Twilio_Rest_IpAccessControlListMapping>`.
 
 .. code-block:: php
 

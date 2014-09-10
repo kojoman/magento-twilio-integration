@@ -1,33 +1,28 @@
 <?php
-
 /**
  * HTTP Stream version of the TinyHttp Client used to connect to Twilio
  * services.
  */
-class Services_Twilio_HttpStreamException extends ErrorException
-{
-}
 
-class Services_Twilio_HttpStream
-{
+class Services_Twilio_HttpStreamException extends ErrorException {}
+
+class Services_Twilio_HttpStream {
 
     private $auth_header = null;
     private $uri = null;
     private $debug = false;
-    private static $default_options
-        = array(
-            "http" => array(
-                "headers"         => "",
-                "timeout"         => 60,
-                "follow_location" => true,
-                "ignore_errors"   => true,
-            ),
-            "ssl"  => array(),
-        );
+    private static $default_options = array(
+        "http" => array(
+            "headers" => "",
+            "timeout" => 60,
+            "follow_location" => true,
+            "ignore_errors" => true,
+        ),
+        "ssl" => array(),
+    );
     private $options = array();
 
-    public function __construct($uri = '', $kwargs = array())
-    {
+    public function __construct($uri = '', $kwargs = array()) {
         $this->uri = $uri;
         if (isset($kwargs['debug'])) {
             $this->debug = true;
@@ -39,8 +34,7 @@ class Services_Twilio_HttpStream
         }
     }
 
-    public function __call($name, $args)
-    {
+    public function __call($name, $args) {
         list($res, $req_headers, $req_body) = $args + array(0, array(), '');
 
         $request_options = $this->options;
@@ -50,7 +44,7 @@ class Services_Twilio_HttpStream
             $request_options['http']['content'] = $req_body;
         }
 
-        foreach ($req_headers as $key => $value) {
+        foreach($req_headers as $key => $value) {
             $request_options['http']['header'] .= sprintf("%s: %s\r\n", $key, $value);
         }
 
@@ -81,7 +75,7 @@ class Services_Twilio_HttpStream
         $status_code = intval($matches[1]);
         $response_headers = array();
 
-        foreach ($http_response_header as $header) {
+        foreach($http_response_header as $header) {
             list($key, $val) = explode(":", $header);
             $response_headers[trim($key)] = trim($val);
         }
@@ -89,13 +83,10 @@ class Services_Twilio_HttpStream
         return array($status_code, $response_headers, $result);
     }
 
-    public function authenticate($user, $pass)
-    {
+    public function authenticate($user, $pass) {
         if (isset($user) && isset($pass)) {
-            $this->auth_header = sprintf(
-                "Authorization: Basic %s",
-                base64_encode(sprintf("%s:%s", $user, $pass))
-            );
+            $this->auth_header = sprintf("Authorization: Basic %s",
+                base64_encode(sprintf("%s:%s", $user, $pass)));
         } else {
             $this->auth_header = null;
         }

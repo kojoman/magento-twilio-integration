@@ -2,19 +2,16 @@
 
 require_once 'Twilio/Capability.php';
 
-class CapabilityTest extends PHPUnit_Framework_TestCase
-{
+class CapabilityTest extends PHPUnit_Framework_TestCase {
 
-    public function testNoPermissions()
-    {
+    public function testNoPermissions() {
         $token = new Services_Twilio_Capability('AC123', 'foo');
         $payload = JWT::decode($token->generateToken(), 'foo');
         $this->assertEquals($payload->iss, "AC123");
         $this->assertEquals($payload->scope, '');
     }
 
-    public function testInboundPermissions()
-    {
+    public function testInboundPermissions() {
         $token = new Services_Twilio_Capability('AC123', 'foo');
         $token->allowClientIncoming("andy");
         $payload = JWT::decode($token->generateToken(), 'foo');
@@ -23,8 +20,7 @@ class CapabilityTest extends PHPUnit_Framework_TestCase
         $this->assertEquals($payload->scope, $eurl);
     }
 
-    public function testOutboundPermissions()
-    {
+    public function testOutboundPermissions() {
         $token = new Services_Twilio_Capability('AC123', 'foo');
         $token->allowClientOutgoing("AP123");
         $payload = JWT::decode($token->generateToken(), 'foo');;
@@ -32,8 +28,7 @@ class CapabilityTest extends PHPUnit_Framework_TestCase
         $this->assertContains($eurl, $payload->scope);
     }
 
-    public function testOutboundPermissionsParams()
-    {
+    public function testOutboundPermissionsParams() {
         $token = new Services_Twilio_Capability('AC123', 'foo');
         $token->allowClientOutgoing("AP123", array("foobar" => 3));
         $payload = JWT::decode($token->generateToken(), 'foo');
@@ -42,8 +37,7 @@ class CapabilityTest extends PHPUnit_Framework_TestCase
         $this->assertEquals($payload->scope, $eurl);
     }
 
-    public function testEvents()
-    {
+    public function testEvents() {
         $token = new Services_Twilio_Capability('AC123', 'foo');
         $token->allowEventStream();
         $payload = JWT::decode($token->generateToken(), 'foo');
@@ -53,8 +47,7 @@ class CapabilityTest extends PHPUnit_Framework_TestCase
         $this->assertEquals($payload->scope, $event_uri);
     }
 
-    public function testEventsWithFilters()
-    {
+    public function testEventsWithFilters() {
         $token = new Services_Twilio_Capability('AC123', 'foo');
         $token->allowEventStream(array("foobar" => "hey"));
         $payload = JWT::decode($token->generateToken(), 'foo');
@@ -65,10 +58,9 @@ class CapabilityTest extends PHPUnit_Framework_TestCase
     }
 
 
-    public function testDecode()
-    {
+    public function testDecode() {
         $token = new Services_Twilio_Capability('AC123', 'foo');
-        $token->allowClientOutgoing("AP123", array("foobar" => 3));
+        $token->allowClientOutgoing("AP123", array("foobar"=> 3));
         $token->allowClientIncoming("andy");
         $token->allowEventStream();
 
@@ -86,8 +78,7 @@ class CapabilityTest extends PHPUnit_Framework_TestCase
     }
 
 
-    function testDecodeWithAuthToken()
-    {
+    function testDecodeWithAuthToken() {
         try {
             $token = new Services_Twilio_Capability('AC123', 'foo');
             $payload = JWT::decode($token->generateToken(), 'foo');
@@ -97,16 +88,14 @@ class CapabilityTest extends PHPUnit_Framework_TestCase
         }
     }
 
-    function testClientNameValidation()
-    {
+    function testClientNameValidation() {
         $this->setExpectedException('InvalidArgumentException');
         $token = new Services_Twilio_Capability('AC123', 'foo');
         $token->allowClientIncoming('@');
         $this->fail('exception should have been raised');
     }
 
-    function zeroLengthNameInvalid()
-    {
+    function zeroLengthNameInvalid() {
         $this->setExpectedException('InvalidArgumentException');
         $token = new Services_Twilio_Capability('AC123', 'foo');
         $token->allowClientIncoming("");

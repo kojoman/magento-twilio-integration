@@ -60,10 +60,8 @@
  *    The subresources associated with this domain (IpAccessControlListMappings, CredentialListMappings)
  *
  */
-class Services_Twilio_Rest_Domain extends Services_Twilio_InstanceResource
-{
-    protected function init($client, $uri)
-    {
+class Services_Twilio_Rest_Domain extends Services_Twilio_InstanceResource {
+    protected function init($client, $uri) {
         $this->setupSubresources(
             'ip_access_control_list_mappings',
             'credential_list_mappings'

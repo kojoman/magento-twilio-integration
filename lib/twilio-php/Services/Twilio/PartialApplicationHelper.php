@@ -9,7 +9,7 @@
  * @author   Neuman Vong <neuman@twilio.com>
  * @license  http://creativecommons.org/licenses/MIT/ MIT
  * @link     http://pear.php.net/package/Services_Twilio
- */
+ */ 
 class Services_Twilio_PartialApplicationHelper
 {
     private $callbacks;
@@ -22,7 +22,7 @@ class Services_Twilio_PartialApplicationHelper
     public function set($method, $callback, array $args)
     {
         if (!is_callable($callback)) {
-            return false;
+            return FALSE;
         }
         $this->callbacks[$method] = array($callback, $args);
     }

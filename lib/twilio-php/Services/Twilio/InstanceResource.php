@@ -11,8 +11,7 @@
 /**
  * Abstraction of an instance resource from the Twilio API.
  */
-abstract class Services_Twilio_InstanceResource extends Services_Twilio_Resource
-{
+abstract class Services_Twilio_InstanceResource extends Services_Twilio_Resource {
 
     /**
      * Make a request to the API to update an instance resource
@@ -42,8 +41,7 @@ abstract class Services_Twilio_InstanceResource extends Services_Twilio_Resource
      * :return: Nothing, this is purely side effecting
      * :rtype: null
      */
-    public function updateAttributes($params)
-    {
+    public function updateAttributes($params) {
         unset($params->uri);
         foreach ($params as $name => $value) {
             $this->$name = $value;
